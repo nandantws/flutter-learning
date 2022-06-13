@@ -56,6 +56,9 @@ class NewProductBanner extends StatelessWidget {
                       style: TextStyle(fontSize: 17),
                     ),
                     style: ButtonStyle(
+                      shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      )),
                       fixedSize: MaterialStateProperty.all(const Size(120, 25)),
                       backgroundColor: MaterialStateProperty.all(Colors.white),
                       foregroundColor:

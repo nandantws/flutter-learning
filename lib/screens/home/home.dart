@@ -8,11 +8,11 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
+    var singleChildScrollView = SingleChildScrollView(
+      child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
-          // mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
           children: [
             SizedBox(
               height: 70,
@@ -22,10 +22,16 @@ class Home extends StatelessWidget {
               height: 30,
             ),
             NewProductBanner(),
+            SizedBox(
+              height: 20,
+            ),
             Categories()
           ],
         ),
       ),
+    );
+    return Scaffold(
+      body: singleChildScrollView,
     );
   }
 }
