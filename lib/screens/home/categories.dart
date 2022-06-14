@@ -70,9 +70,20 @@ class _CategoriesState extends State<Categories> with TickerProviderStateMixin {
             controller: tabController,
             children: [
               Container(
-                height: 300,
-                color: Colors.red,
-              ),
+                  // color: Colors.red,
+                  child: GridView.count(
+                padding: EdgeInsets.zero,
+                childAspectRatio: 0.605,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+                crossAxisCount: 2,
+                children: [
+                  ProductCard(),
+                  ProductCard(),
+                  ProductCard(),
+                  ProductCard()
+                ],
+              )),
               Container(
                 height: 300,
                 color: Colors.teal,
