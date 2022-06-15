@@ -73,7 +73,7 @@ class _CategoriesState extends State<Categories> with TickerProviderStateMixin {
                   // color: Colors.red,
                   child: GridView.count(
                 padding: EdgeInsets.zero,
-                childAspectRatio: 0.605,
+                childAspectRatio: 0.6,
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 10,
                 crossAxisCount: 2,
