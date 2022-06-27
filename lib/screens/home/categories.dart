@@ -14,7 +14,40 @@ class _CategoriesState extends State<Categories> with TickerProviderStateMixin {
     'Addidas',
     'Puma',
   ];
+
+  List _products = [
+    {
+      'category': 'Unisex Shoes',
+      'name': 'Balenciaga Speed',
+      'image': 'assets/balenciaga.png',
+      'colors': [Colors.black, Colors.cyan, Colors.teal],
+      'price': 485,
+    },
+    {
+      'category': "Men's Shoes",
+      'name': 'Nike Zoom Freak',
+      'image': 'assets/nike.png',
+      'colors': [Colors.black, Colors.green],
+      'price': 485,
+    },
+    {
+      'category': "Men's Sneaker",
+      'name': '1DER Vegas',
+      'image': 'assets/puma.png',
+      'colors': [Colors.black, Colors.red, Colors.blue],
+      'price': 485,
+    },
+    {
+      'category': 'Running Shoes',
+      'name': 'ADISTEN M',
+      'image': 'assets/adidas.png',
+      'colors': [Colors.black, Colors.blueAccent, Colors.grey],
+      'price': 485,
+    },
+  ];
+
   int selectedIndex = 0;
+
   @override
   void initState() {
     super.initState();
@@ -73,15 +106,20 @@ class _CategoriesState extends State<Categories> with TickerProviderStateMixin {
                   // color: Colors.red,
                   child: GridView.count(
                 padding: EdgeInsets.zero,
-                childAspectRatio: 0.6,
+                childAspectRatio: 0.624,
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 10,
                 crossAxisCount: 2,
                 children: [
-                  ProductCard(),
-                  ProductCard(),
-                  ProductCard(),
-                  ProductCard()
+                  ...List.generate(
+                      _products.length,
+                      (i) => ProductCard(
+                            category: _products[i]['category'],
+                            name: _products[i]['name'],
+                            image: _products[i]['image'],
+                            colors: _products[i]['colors'],
+                            price: _products[i]['price'],
+                          )),
                 ],
               )),
               Container(

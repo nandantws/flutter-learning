@@ -55,8 +55,8 @@ class CategoryChip extends StatelessWidget {
 
 class ColorDots extends StatelessWidget {
   // bool isSelected;
-  List<Color> colors;
-  ColorDots({required this.colors});
+  List colors;
+  ColorDots({Key? key, required this.colors}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -77,14 +77,29 @@ class ColorDots extends StatelessWidget {
 }
 
 class ProductCard extends StatelessWidget {
+  String category;
+  String name;
+  String image;
+  List<Color> colors;
+  num price;
+
+  ProductCard(
+      {Key? key,
+      required this.category,
+      required this.name,
+      required this.image,
+      required this.colors,
+      required this.price})
+      : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     Size _size = MediaQuery.of(context).size;
-    return Container(
-      // width: _size.width * 0.4,
-      // height: _size.height * 0.78,
-      // color: Colors.teal,
-
+    return Card(
+      elevation: 2,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15.0),
+      ),
       child: Column(children: [
         Padding(
           padding: EdgeInsets.symmetric(horizontal: _size.width * 0.05),
@@ -94,25 +109,27 @@ class ProductCard extends StatelessWidget {
               SizedBox(
                 height: _size.height * 0.02,
               ),
-              GreyText(text: 'Unisex Shoes'),
+              GreyText(text: category),
               SizedBox(
                 height: _size.height * 0.01,
               ),
-              Text(
-                'Balenciaga Speed',
-                style: TextStyle(
-                    fontSize: _size.width * 0.05, fontWeight: FontWeight.bold),
-              ),
               SizedBox(
-                height: _size.height * 0.03,
+                height: _size.height * 0.065,
+                child: Text(
+                  name,
+                  style: TextStyle(
+                      fontSize: _size.width * 0.05,
+                      fontWeight: FontWeight.bold),
+                ),
               ),
-              Transform.rotate(
-                  angle: -(pi / 9), child: Image.asset('assets/nike.png')),
-              SizedBox(
-                height: _size.height * 0.041,
+              Container(
+                // color: Colors.deepPurple,
+                height: _size.height * 0.15,
+                child: Transform.rotate(
+                    angle: -(pi / 9), child: Image.asset(image)),
               ),
               ColorDots(
-                colors: [Colors.black, Colors.cyan, Colors.teal],
+                colors: colors,
               ),
             ],
           ),
@@ -123,15 +140,13 @@ class ProductCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                '\$452',
-                style: TextStyle(
-                    fontSize: _size.width * 0.06, fontWeight: FontWeight.bold),
+                '\$$price',
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
               ),
               Container(
-                height: _size.height * 0.07,
-                width: _size.width * 0.127,
-                // height: 50,
-                // width: 50,
+                height: _size.height * 0.055,
+                width: _size.width * 0.11,
+
                 child: Icon(
                   Icons.add,
                   color: Colors.white,
