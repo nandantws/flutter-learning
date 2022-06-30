@@ -1,20 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:helloworld/screens/home/utils.dart';
 
-class Categories extends StatefulWidget {
-  @override
-  _CategoriesState createState() => _CategoriesState();
-}
-
-class _CategoriesState extends State<Categories> with TickerProviderStateMixin {
-  late TabController tabController;
-  List _categories = [
-    'All',
-    'Nike',
-    'Addidas',
-    'Puma',
-  ];
-
+class ProductsInGridView extends StatelessWidget {
+  String text = '';
   List _products = [
     {
       'category': 'Unisex Shoes',
@@ -46,21 +34,53 @@ class _CategoriesState extends State<Categories> with TickerProviderStateMixin {
     },
   ];
 
-  int selectedIndex = 0;
-
-  @override
-  void initState() {
-    super.initState();
-    tabController = TabController(length: _categories.length, vsync: this);
-    tabController.addListener(() {
-      setState(() {
-        selectedIndex = tabController.index;
-      });
-    });
-  }
+  ProductsInGridView({required this.text});
 
   @override
   Widget build(BuildContext context) {
+    Size _size = MediaQuery.of(context).size;
+
+    return GridView.builder(
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      itemCount: _products.length,
+      padding: EdgeInsets.only(bottom: _size.height * 0.02),
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          mainAxisSpacing: _size.height * 0.015,
+          crossAxisSpacing: _size.height * 0.015,
+          mainAxisExtent: _size.height * 0.372,
+          crossAxisCount: 2),
+      itemBuilder: (_, index) {
+        return ProductCard(
+          category: _products[index]['category'],
+          name: _products[index]['name'],
+          image: _products[index]['image'],
+          colors: _products[index]['colors'],
+          price: _products[index]['price'],
+        );
+      },
+    );
+  }
+}
+
+class Categories extends StatefulWidget {
+  @override
+  _CategoriesState createState() => _CategoriesState();
+}
+
+class _CategoriesState extends State<Categories> {
+  late TabController tabController;
+  List _categories = [
+    'All',
+    'Nike',
+    'Addidas',
+    'Puma',
+  ];
+  int selectedIndex = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    Size _size = MediaQuery.of(context).size;
     return Column(
       children: [
         Row(
@@ -74,68 +94,41 @@ class _CategoriesState extends State<Categories> with TickerProviderStateMixin {
           ],
         ),
         SizedBox(
-          height: 20,
+          height: _size.height * 0.025,
         ),
         Align(
           alignment: Alignment.centerLeft,
-          child: TabBar(
-            controller: tabController,
-            isScrollable: true,
-            labelPadding: EdgeInsets.symmetric(horizontal: 5),
-            indicator: BoxDecoration(color: Colors.transparent),
-            tabs: [
-              ...List.generate(
-                  _categories.length,
-                  (i) => Tab(
-                          child: CategoryChip(
-                        text: _categories[i],
-                        isSelected: i == selectedIndex ? true : false,
-                      )))
-            ],
-          ),
-        ),
-        SizedBox(
-          height: 20,
-        ),
-        Container(
-          height: 300,
-          child: TabBarView(
-            controller: tabController,
-            children: [
-              Container(
-                  // color: Colors.red,
-                  child: GridView.count(
-                padding: EdgeInsets.zero,
-                childAspectRatio: 0.624,
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
-                crossAxisCount: 2,
+          child: DefaultTabController(
+              length: 4,
+              child: Column(
                 children: [
-                  ...List.generate(
-                      _products.length,
-                      (i) => ProductCard(
-                            category: _products[i]['category'],
-                            name: _products[i]['name'],
-                            image: _products[i]['image'],
-                            colors: _products[i]['colors'],
-                            price: _products[i]['price'],
-                          )),
+                  TabBar(
+                      isScrollable: true,
+                      padding: EdgeInsets.zero,
+                      labelPadding: EdgeInsets.only(right: 7),
+                      indicatorColor: Colors.transparent,
+                      onTap: (index) {
+                        setState(() {
+                          selectedIndex = index;
+                        });
+                      },
+                      tabs: [
+                        ...List.generate(
+                            _categories.length,
+                            (i) => Tab(
+                                    child: CategoryChip(
+                                  text: _categories[i],
+                                  isSelected: i == selectedIndex ? true : false,
+                                )))
+                      ]),
+                  ProductsInGridView(
+                    text: _categories[selectedIndex],
+                  )
                 ],
               )),
-              Container(
-                height: 300,
-                color: Colors.teal,
-              ),
-              Container(
-                height: 300,
-                color: Colors.red,
-              ),
-              Container(
-                height: 300,
-                color: Colors.teal,
-              )
-            ],
-          ),
+        ),
+        SizedBox(
+          height: _size.height * 0.015,
         )
       ],
     );

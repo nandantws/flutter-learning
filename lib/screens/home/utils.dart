@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import "dart:math" show pi;
 
+import 'package:helloworld/screens/home/productDetail.dart';
+
 class GreyText extends StatelessWidget {
   String text;
   GreyText({required this.text});
@@ -28,7 +30,7 @@ class CategoryChip extends StatelessWidget {
       child: Container(
         decoration: isSelected
             ? BoxDecoration(
-                borderRadius: BorderRadius.circular(7),
+                borderRadius: BorderRadius.circular(5),
                 gradient: LinearGradient(
                     begin: Alignment.topLeft,
                     end: Alignment.topRight,
@@ -95,62 +97,78 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size _size = MediaQuery.of(context).size;
-    return Card(
-      elevation: 2,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15.0),
-      ),
-      child: Column(children: [
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: _size.width * 0.05),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: _size.height * 0.02,
-              ),
-              GreyText(text: category),
-              SizedBox(
-                height: _size.height * 0.01,
-              ),
-              SizedBox(
-                height: _size.height * 0.065,
-                child: Text(
-                  name,
-                  style: TextStyle(
-                      fontSize: _size.width * 0.05,
-                      fontWeight: FontWeight.bold),
+    return InkWell(
+      onTap: () {
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => ProductDetail()));
+      },
+      child: Card(
+        elevation: 2,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15.0),
+        ),
+        child: Stack(
+          children: [
+            Column(children: [
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: _size.width * 0.05),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: _size.height * 0.02,
+                    ),
+                    GreyText(text: category),
+                    SizedBox(
+                      height: _size.height * 0.01,
+                    ),
+                    SizedBox(
+                      height: _size.height * 0.065,
+                      child: Text(
+                        name,
+                        style: TextStyle(
+                            fontSize: _size.width * 0.05,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    Container(
+                      // color: Colors.deepPurple,
+                      height: _size.height * 0.15,
+                      child: Transform.rotate(
+                          angle: -(pi / 9), child: Image.asset(image)),
+                    ),
+                    SizedBox(
+                      height: _size.height * 0.02,
+                    ),
+                    ColorDots(
+                      colors: colors,
+                    ),
+                    SizedBox(
+                      height: _size.height * 0.01,
+                    ),
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            '\$$price',
+                            style: TextStyle(
+                                fontSize: 21, fontWeight: FontWeight.bold),
+                          )
+                        ])
+                  ],
                 ),
               ),
-              Container(
-                // color: Colors.deepPurple,
-                height: _size.height * 0.15,
-                child: Transform.rotate(
-                    angle: -(pi / 9), child: Image.asset(image)),
-              ),
-              ColorDots(
-                colors: colors,
-              ),
-            ],
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.only(left: _size.width * 0.05),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                '\$$price',
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-              ),
-              Container(
+            ]),
+            Align(
+              alignment: Alignment.bottomRight,
+              child: Container(
                 height: _size.height * 0.055,
                 width: _size.width * 0.11,
 
                 child: Icon(
                   Icons.add,
                   color: Colors.white,
-                  size: _size.width * 0.08,
+                  size: _size.width * 0.07,
                 ),
                 decoration: BoxDecoration(
                     gradient: LinearGradient(
@@ -169,10 +187,10 @@ class ProductCard extends StatelessWidget {
                         bottomRight: Radius.circular(15))),
                 // width: ,
               ),
-            ],
-          ),
-        )
-      ]),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
