@@ -4,14 +4,6 @@ import 'package:helloworld/screens/home/utils.dart';
 class ProductsInGridView extends StatelessWidget {
   String brand = '';
   List _products = [
-    // {
-    //   'brand': 'All',
-    //   'category': 'Unisex Shoes',
-    //   'name': 'Balenciaga Speed',
-    //   'image': 'assets/balenciaga.png',
-    //   'colors': [Colors.black, Colors.cyan, Colors.teal],
-    //   'price': 485,
-    // },
     {
       'brand': 'Puma',
       'category': "Men's Sneaker",
@@ -68,7 +60,6 @@ class ProductsInGridView extends StatelessWidget {
   Widget build(BuildContext context) {
     Size _size = MediaQuery.of(context).size;
     List _brandProducts = [];
-    print(brand);
     brand == 'All'
         ? _brandProducts = _products
         : _brandProducts =
