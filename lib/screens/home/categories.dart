@@ -1,25 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:helloworld/screens/home/productListing.dart';
 import 'package:helloworld/screens/home/utils.dart';
 import 'package:helloworld/models/product.dart';
 
-class ProductsInGridView extends StatefulWidget {
-  late final String brand;
-  ProductsInGridView({Key? key, required this.brand}) : super(key: key);
-
+class Categories extends StatefulWidget {
   @override
-  State<ProductsInGridView> createState() => _ProductsInGridViewState();
+  _CategoriesState createState() => _CategoriesState();
 }
 
-class _ProductsInGridViewState extends State<ProductsInGridView> {
+class _CategoriesState extends State<Categories> {
+  late TabController tabController;
+  List _categories = [
+    'All',
+    'Nike',
+    'Addidas',
+    'Puma',
+  ];
+  int selectedIndex = 0;
   List<Product> _brandProducts = [];
-  // ProductsInGridView({required this.brand});
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     loadData();
-    // print('_brandProducts.length ' + _brandProducts.length.toString());
   }
 
   loadData() {
@@ -79,142 +83,11 @@ class _ProductsInGridViewState extends State<ProductsInGridView> {
         'price': 485,
       }
     ];
-    var a = List.from(_products);
-    // print(a);
+
     _brandProducts = List.from(_products)
         .map((product) => Product.fromJson(product))
         .toList();
   }
-
-  @override
-  Widget build(BuildContext context) {
-    Size _size = MediaQuery.of(context).size;
-    return GridView.builder(
-      shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
-      itemCount: _brandProducts.length,
-      padding: EdgeInsets.only(bottom: _size.height * 0.02),
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          mainAxisSpacing: _size.height * 0.015,
-          crossAxisSpacing: _size.height * 0.015,
-          mainAxisExtent: _size.height * 0.37,
-          crossAxisCount: 2),
-      itemBuilder: (_, index) {
-        return ProductCard(
-          category: _brandProducts[index].category,
-          name: _brandProducts[index].name,
-          image: _brandProducts[index].image,
-          colors: _brandProducts[index].colors,
-          price: _brandProducts[index].price,
-        );
-      },
-    );
-  }
-}
-
-// class ProductsInGridView extends StatelessWidget {
-//   String brand = '';
-//   List _products = [
-//     {
-//       'brand': 'Puma',
-//       'category': "Men's Sneaker",
-//       'name': '1DER Vegas',
-//       'image': 'assets/puma.png',
-//       'colors': [Colors.black, Colors.red, Colors.blue],
-//       'price': 485,
-//     },
-//     {
-//       'brand': 'Addidas',
-//       'category': 'Running Shoes',
-//       'name': 'ADISTEN M',
-//       'image': 'assets/adidas.png',
-//       'colors': [Colors.black, Colors.blueAccent, Colors.grey],
-//       'price': 485,
-//     },
-//     {
-//       'brand': 'Nike',
-//       'category': "Men's Shoes",
-//       'name': 'Nike Air Pegasus',
-//       'image': 'assets/nike_air_zoom_pegasus.png',
-//       'colors': [Colors.black, Colors.green],
-//       'price': 485,
-//     },
-//     {
-//       'brand': 'Nike',
-//       'category': "Men's Shoes",
-//       'name': 'Nike Air Presto',
-//       'image': 'assets/nike_air_presto.png',
-//       'colors': [Colors.black, Colors.green],
-//       'price': 485,
-//     },
-//     {
-//       'brand': 'Nike',
-//       'category': "Men's Shoes",
-//       'name': 'Nike Air Force',
-//       'image': 'assets/nike_air_force.png',
-//       'colors': [Colors.black, Colors.green],
-//       'price': 485,
-//     },
-//     {
-//       'brand': 'Nike',
-//       'category': "Men's Shoes",
-//       'name': 'Nike Zoom Freak',
-//       'image': 'assets/nike_zoom_freak.png',
-//       'colors': [Colors.black, Colors.green],
-//       'price': 485,
-//     }
-//   ];
-
-//   ProductsInGridView({required this.brand});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     Size _size = MediaQuery.of(context).size;
-//     List _brandProducts = [];
-//     brand == 'All'
-//         ? _brandProducts = _products
-//         : _brandProducts =
-//             _products.where((element) => element['brand'] == brand).toList();
-
-//     // List<Product> brandProducts = _products;
-
-//     return GridView.builder(
-//       shrinkWrap: true,
-//       physics: NeverScrollableScrollPhysics(),
-//       itemCount: _brandProducts.length,
-//       padding: EdgeInsets.only(bottom: _size.height * 0.02),
-//       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-//           mainAxisSpacing: _size.height * 0.015,
-//           crossAxisSpacing: _size.height * 0.015,
-//           mainAxisExtent: _size.height * 0.37,
-//           crossAxisCount: 2),
-//       itemBuilder: (_, index) {
-//         return ProductCard(
-//           category: _brandProducts[index]['category'],
-//           name: _brandProducts[index]['name'],
-//           image: _brandProducts[index]['image'],
-//           colors: _brandProducts[index]['colors'],
-//           price: _brandProducts[index]['price'],
-//         );
-//       },
-//     );
-//   }
-// }
-
-class Categories extends StatefulWidget {
-  @override
-  _CategoriesState createState() => _CategoriesState();
-}
-
-class _CategoriesState extends State<Categories> {
-  late TabController tabController;
-  List _categories = [
-    'All',
-    'Nike',
-    'Addidas',
-    'Puma',
-  ];
-  int selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -262,8 +135,12 @@ class _CategoriesState extends State<Categories> {
                   SizedBox(
                     height: _size.height * 0.01,
                   ),
-                  ProductsInGridView(
-                    brand: _categories[selectedIndex],
+                  ProductsGridView(
+                    products: _brandProducts
+                        .where((product) => _categories[selectedIndex] == 'All'
+                            ? true
+                            : product.brand == _categories[selectedIndex])
+                        .toList(),
                   )
                 ],
               )),
