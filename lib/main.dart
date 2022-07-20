@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:helloworld/screens/detail/detail.dart';
 import 'package:helloworld/screens/onboarding/onboarding.dart';
 import 'screens/home/home.dart';
 
@@ -32,7 +33,8 @@ class MyApp extends StatelessWidget {
       // home: showHome ? OnboardingScreen() : Home(),
       routes: {
         '/splash': (context) => Onboarding(),
-        '/home': (context) => Home()
+        '/home': (context) => Home(),
+        '/detail': (context) => ProductDetail()
       },
     );
   }
