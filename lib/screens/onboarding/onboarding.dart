@@ -24,7 +24,7 @@ class _OnboardingState extends State<Onboarding> {
 
   void getShowHome() async {
     prefs = await SharedPreferences.getInstance();
-    showHome = prefs.getBool('showHome') ?? false;
+    showHome = prefs.getBool('showHome') ?? true;
     if (!showHome) {
       Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
     }
