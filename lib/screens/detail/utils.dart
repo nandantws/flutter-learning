@@ -32,8 +32,8 @@ class ColorCircle extends StatelessWidget {
     Size _size = MediaQuery.of(context).size;
 
     return Container(
-      padding: EdgeInsets.all(2),
-      margin: EdgeInsets.only(right: 7),
+      padding: EdgeInsets.all(1.5),
+      margin: EdgeInsets.only(right: 5),
       height: _size.height * 0.035,
       width: _size.height * 0.035,
       decoration: BoxDecoration(
@@ -48,6 +48,42 @@ class ColorCircle extends StatelessWidget {
         color: color,
         shape: BoxShape.circle,
       )),
+    );
+  }
+}
+
+class SizeChip extends StatelessWidget {
+  bool isSelected;
+  String text;
+
+  SizeChip({required this.text, this.isSelected = false});
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Container(
+        decoration: isSelected
+            ? BoxDecoration(
+                borderRadius: BorderRadius.circular(5),
+                gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.topRight,
+                    colors: [
+                      Color(0xFFF58524),
+                      Color(0xFFF2923E),
+                      Color(0xFFF6A656),
+                    ]))
+            : null,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            text,
+            style: TextStyle(
+                fontSize: 15,
+                color: isSelected ? Colors.white : Colors.black26,
+                fontWeight: FontWeight.w500),
+          ),
+        ),
+      ),
     );
   }
 }

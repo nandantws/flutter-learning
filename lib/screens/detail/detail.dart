@@ -12,8 +12,12 @@ class ProductDetail extends StatefulWidget {
 
 class _ProductDetailState extends State<ProductDetail> {
   bool is_favourite = false;
+
   List colors = [Colors.black, Colors.red, Colors.blue];
-  int selectedIndex = 0;
+  int selectedColorIndex = 0;
+
+  List sizes = ['35', '36', '37', '38', '39', '40', '41', '42', '43', '44'];
+  int selectedSizeIndex = 0;
 
   String content =
       "Continue the next evolution of speed with a racing shoe made to help you chase new goals and records. The Nike ZoomX Vaporfly NEXT% 2 builds on the model racers everywhere love. It helps improve comfort and breathability with a redesigned upper.";
@@ -29,7 +33,7 @@ class _ProductDetailState extends State<ProductDetail> {
       Padding(
         padding: const EdgeInsets.all(8.0),
         child: Container(
-          height: _size.height * 0.45,
+          height: _size.height * 0.4,
           decoration: BoxDecoration(
             color: Color.fromARGB(131, 236, 229, 227),
             borderRadius: BorderRadius.circular(20),
@@ -122,16 +126,34 @@ class _ProductDetailState extends State<ProductDetail> {
                     (i) => GestureDetector(
                           onTap: () {
                             setState(() {
-                              selectedIndex = i;
+                              selectedColorIndex = i;
                             });
                           },
                           child: ColorCircle(
                             color: colors[i],
-                            selected: i == selectedIndex ? true : false,
+                            selected: i == selectedColorIndex ? true : false,
                           ),
                         )),
               ],
-            )
+            ),
+            SubHeading(text: "Size"),
+            Container(
+              height: _size.height * 0.055,
+              child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: List.generate(
+                      sizes.length,
+                      (i) => GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              selectedSizeIndex = i;
+                            });
+                          },
+                          child: SizeChip(
+                            text: sizes[i],
+                            isSelected: i == selectedSizeIndex,
+                          )))),
+            ),
           ]))
     ])));
   }
