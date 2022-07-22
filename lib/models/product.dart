@@ -8,9 +8,11 @@ class Product {
   late final String image;
   late final List<Color> colors;
   late final int price;
+  late final List<String> sizes;
+  late final String description;
 
   Product(this.id, this.brand, this.name, this.image, this.colors, this.price,
-      this.category);
+      this.category, this.sizes, this.description);
 
   Product.fromJson(Map<String, dynamic> json) {
     id = json["id"];
@@ -20,5 +22,7 @@ class Product {
     image = json["image"];
     colors = json["colors"];
     price = json["price"];
+    sizes = json["sizes"];
+    description = json["description"];
   }
 }

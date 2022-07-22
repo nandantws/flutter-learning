@@ -34,7 +34,6 @@ class MyApp extends StatelessWidget {
       routes: {
         '/splash': (context) => Onboarding(),
         '/home': (context) => Home(),
-        '/detail': (context) => ProductDetail()
       },
     );
   }
