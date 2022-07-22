@@ -104,3 +104,38 @@ class SizeChip extends StatelessWidget {
     );
   }
 }
+
+class OrangeButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        padding: const EdgeInsets.all(0.0),
+        elevation: 5,
+      ),
+      onPressed: () {},
+      child: Ink(
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(5),
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.topRight,
+              colors: [
+                Color(0xFFF58524),
+                Color(0xFFF2923E),
+                Color(0xFFF6A656),
+              ],
+            )),
+        child: Container(
+          padding: const EdgeInsets.all(10),
+          constraints: const BoxConstraints(minWidth: 250.0),
+          child: const Text(
+            'Buy Now',
+            textAlign: TextAlign.center,
+            style: TextStyle(color: Colors.white),
+          ),
+        ),
+      ),
+    );
+  }
+}

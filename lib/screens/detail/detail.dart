@@ -178,11 +178,7 @@ class _ProductDetailState extends State<ProductDetail> {
               SizedBox(
                 width: _size.width * 0.06,
               ),
-              SizedBox(
-                  width: _size.width * 0.66,
-                  height: _size.height * 0.06,
-                  child:
-                      ElevatedButton(onPressed: () {}, child: Text('Buy Now')))
+              OrangeButton()
             ],
           ),
         ),
