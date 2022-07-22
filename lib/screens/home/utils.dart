@@ -191,24 +191,3 @@ class ProductCard extends StatelessWidget {
     );
   }
 }
-
-class SubHeading extends StatelessWidget {
-  String text;
-  SubHeading({Key? key, required this.text}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    Size _size = MediaQuery.of(context).size;
-    double top = _size.height * 0.02;
-    double bottom = _size.height * 0.01;
-
-    return Padding(
-      padding: EdgeInsets.fromLTRB(0, top, 0, bottom),
-      child: Text(
-        text,
-        textScaleFactor: _size.height * 0.0016,
-        style: TextStyle(fontWeight: FontWeight.w600),
-      ),
-    );
-  }
-}
