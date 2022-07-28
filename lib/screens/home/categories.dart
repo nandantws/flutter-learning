@@ -36,6 +36,9 @@ class _CategoriesState extends State<Categories> {
         'image': 'assets/puma.png',
         'colors': [Colors.black, Colors.red, Colors.blue],
         'price': 485,
+        'sizes': ['35', '36', '37', '38', '39', '40', '41', '42', '43', '44'],
+        'description':
+            "Continue the next evolution of speed with a racing shoe made to help you chase new goals and records. The Nike ZoomX Vaporfly NEXT% 2 builds on the model racers everywhere love. It helps improve comfort and breathability with a redesigned upper."
       },
       {
         'id': 2,
@@ -45,6 +48,9 @@ class _CategoriesState extends State<Categories> {
         'image': 'assets/adidas.png',
         'colors': [Colors.black, Colors.blueAccent, Colors.grey],
         'price': 485,
+        'sizes': ['35', '36', '37', '38', '39', '40', '41', '42', '43', '44'],
+        'description':
+            "Continue the next evolution of speed with a racing shoe made to help you chase new goals and records. The Nike ZoomX Vaporfly NEXT% 2 builds on the model racers everywhere love. It helps improve comfort and breathability with a redesigned upper."
       },
       {
         'id': 3,
@@ -54,6 +60,9 @@ class _CategoriesState extends State<Categories> {
         'image': 'assets/nike_air_zoom_pegasus.png',
         'colors': [Colors.black, Colors.green],
         'price': 485,
+        'sizes': ['35', '36', '37', '38', '39', '40', '41', '42', '43', '44'],
+        'description':
+            "Continue the next evolution of speed with a racing shoe made to help you chase new goals and records. The Nike ZoomX Vaporfly NEXT% 2 builds on the model racers everywhere love. It helps improve comfort and breathability with a redesigned upper."
       },
       {
         'id': 4,
@@ -63,6 +72,9 @@ class _CategoriesState extends State<Categories> {
         'image': 'assets/nike_air_presto.png',
         'colors': [Colors.black, Colors.green],
         'price': 485,
+        'sizes': ['35', '36', '37', '38', '39', '40', '41', '42', '43', '44'],
+        'description':
+            "Continue the next evolution of speed with a racing shoe made to help you chase new goals and records. The Nike ZoomX Vaporfly NEXT% 2 builds on the model racers everywhere love. It helps improve comfort and breathability with a redesigned upper."
       },
       {
         'id': 5,
@@ -72,6 +84,9 @@ class _CategoriesState extends State<Categories> {
         'image': 'assets/nike_air_force.png',
         'colors': [Colors.black, Colors.green],
         'price': 485,
+        'sizes': ['35', '36', '37', '38', '39', '40', '41', '42', '43', '44'],
+        'description':
+            "Continue the next evolution of speed with a racing shoe made to help you chase new goals and records. The Nike ZoomX Vaporfly NEXT% 2 builds on the model racers everywhere love. It helps improve comfort and breathability with a redesigned upper."
       },
       {
         'id': 6,
@@ -81,6 +96,9 @@ class _CategoriesState extends State<Categories> {
         'image': 'assets/nike_zoom_freak.png',
         'colors': [Colors.black, Colors.green],
         'price': 485,
+        'sizes': ['35', '36', '37', '38', '39', '40', '41', '42', '43', '44'],
+        'description':
+            "Continue the next evolution of speed with a racing shoe made to help you chase new goals and records. The Nike ZoomX Vaporfly NEXT% 2 builds on the model racers everywhere love. It helps improve comfort and breathability with a redesigned upper."
       }
     ];
 

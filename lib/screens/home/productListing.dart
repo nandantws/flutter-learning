@@ -22,11 +22,7 @@ class ProductsGridView extends StatelessWidget {
           crossAxisCount: 2),
       itemBuilder: (_, index) {
         return ProductCard(
-          category: products[index].category,
-          name: products[index].name,
-          image: products[index].image,
-          colors: products[index].colors,
-          price: products[index].price,
+          product: products[index],
         );
       },
     );

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import "dart:math" show pi;
 
-import 'package:helloworld/screens/home/productDetail.dart';
+import 'package:helloworld/models/product.dart';
+import 'package:helloworld/screens/detail/detail.dart';
 
 class GreyText extends StatelessWidget {
   String text;
@@ -79,28 +80,22 @@ class ColorDots extends StatelessWidget {
 }
 
 class ProductCard extends StatelessWidget {
-  String category;
-  String name;
-  String image;
-  List<Color> colors;
-  num price;
+  Product product;
 
-  ProductCard(
-      {Key? key,
-      required this.category,
-      required this.name,
-      required this.image,
-      required this.colors,
-      required this.price})
-      : super(key: key);
+  ProductCard({
+    Key? key,
+    required this.product,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     Size _size = MediaQuery.of(context).size;
     return InkWell(
       onTap: () {
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => ProductDetail()));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ProductDetail(product: product)));
       },
       child: Card(
         elevation: 2,
@@ -118,30 +113,29 @@ class ProductCard extends StatelessWidget {
                     SizedBox(
                       height: _size.height * 0.02,
                     ),
-                    GreyText(text: category),
+                    GreyText(text: product.category),
                     SizedBox(
                       height: _size.height * 0.01,
                     ),
                     SizedBox(
                       height: _size.height * 0.065,
                       child: Text(
-                        name,
+                        product.name,
                         style: TextStyle(
                             fontSize: _size.width * 0.05,
                             fontWeight: FontWeight.bold),
                       ),
                     ),
                     Container(
-                      // color: Colors.deepPurple,
                       height: _size.height * 0.15,
                       child: Transform.rotate(
-                          angle: -(pi / 9), child: Image.asset(image)),
+                          angle: -(pi / 9), child: Image.asset(product.image)),
                     ),
                     SizedBox(
                       height: _size.height * 0.02,
                     ),
                     ColorDots(
-                      colors: colors,
+                      colors: product.colors,
                     ),
                     SizedBox(
                       height: _size.height * 0.01,
@@ -150,7 +144,7 @@ class ProductCard extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            '\$$price',
+                            '\$' + product.price.toString(),
                             style: TextStyle(
                                 fontSize: 21, fontWeight: FontWeight.bold),
                           )
