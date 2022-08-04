@@ -5,6 +5,8 @@ import 'package:helloworld/screens/home/utils.dart';
 import 'package:readmore/readmore.dart';
 import "dart:math" show pi;
 
+import 'package:imageview360/imageview360.dart';
+
 class ProductDetail extends StatefulWidget {
   final Product product;
   const ProductDetail({Key? key, required this.product}) : super(key: key);
@@ -17,6 +19,22 @@ class _ProductDetailState extends State<ProductDetail> {
   bool isFavourite = false;
   int selectedColorIndex = 0;
   int selectedSizeIndex = 0;
+  List<ImageProvider> imageList = [];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    loadImages();
+  }
+
+  loadImages() async {
+    for (int i = 0; i <= 78; i++) {
+      imageList.add(AssetImage('assets/sample/videoplayback_0000$i.png'));
+      // To precache images so that when required they are loaded faster.
+      await precacheImage(AssetImage('assets/sample/$i.png'), context);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +48,7 @@ class _ProductDetailState extends State<ProductDetail> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Container(
-              height: size.height * 0.4,
+              height: size.height * 0.42,
               decoration: BoxDecoration(
                 color: const Color.fromARGB(131, 236, 229, 227),
                 borderRadius: BorderRadius.circular(20),
@@ -80,12 +98,17 @@ class _ProductDetailState extends State<ProductDetail> {
                   SizedBox(
                     height: size.height * 0.05,
                   ),
-                  Transform.rotate(
-                    angle: -(pi / 9),
-                    child: SizedBox(
-                        height: size.height * 0.2,
-                        child: Image.asset(widget.product.image)),
+                  ImageView360(
+                    key: UniqueKey(),
+                    imageList: imageList,
+                    // autoRotate: true,
                   ),
+                  // Transform.rotate(
+                  //   angle: -(pi / 9),
+                  //   child: SizedBox(
+                  //       height: size.height * 0.2,
+                  //       child: Image.asset(widget.product.image)),
+                  // ),
                 ],
               ),
             ),
@@ -173,7 +196,7 @@ class _ProductDetailState extends State<ProductDetail> {
                 ],
               ),
               SizedBox(
-                width: size.width * 0.06,
+                width: size.width * 0.05,
               ),
               OrangeButton(text: 'Buy Now')
             ],
