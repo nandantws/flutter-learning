@@ -80,11 +80,14 @@ class _ProductDetailState extends State<ProductDetail> {
                   SizedBox(
                     height: size.height * 0.05,
                   ),
-                  Transform.rotate(
-                    angle: -(pi / 9),
-                    child: SizedBox(
-                        height: size.height * 0.2,
-                        child: Image.asset(widget.product.image)),
+                  Hero(
+                    tag: Key(widget.product.id.toString()),
+                    child: Transform.rotate(
+                      angle: -(pi / 9),
+                      child: SizedBox(
+                          height: size.height * 0.2,
+                          child: Image.asset(widget.product.image)),
+                    ),
                   ),
                 ],
               ),
