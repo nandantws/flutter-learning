@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:helloworld/screens/home/appbar.dart';
 import 'package:helloworld/screens/home/banner.dart';
 import 'package:helloworld/screens/home/bottomNavigationBar.dart';
 import 'package:helloworld/screens/home/categories.dart';
 import 'package:helloworld/screens/home/utils.dart';
+
+import '../widgets/appbars.dart';
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
@@ -12,7 +13,7 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       // extendBodyBehindAppBar: true,
-      appBar: CustomAppbar(),
+      appBar: HomeAppbar(),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),

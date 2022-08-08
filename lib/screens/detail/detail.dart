@@ -5,6 +5,8 @@ import 'package:helloworld/screens/home/utils.dart';
 import 'package:readmore/readmore.dart';
 import "dart:math" show pi;
 
+import '../cart/cart.dart';
+
 class ProductDetail extends StatefulWidget {
   final Product product;
   const ProductDetail({Key? key, required this.product}) : super(key: key);
@@ -178,7 +180,13 @@ class _ProductDetailState extends State<ProductDetail> {
               SizedBox(
                 width: size.width * 0.06,
               ),
-              OrangeButton(text: 'Buy Now')
+              OrangeButton(
+                text: 'Add to Cart',
+                callback: () {
+                  Navigator.push(
+                      context, MaterialPageRoute(builder: (context) => Cart()));
+                },
+              )
             ],
           ),
         ),

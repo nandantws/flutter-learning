@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:helloworld/screens/home/utils.dart';
+import 'package:helloworld/screens/widgets/utils.dart';
 
-class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
-  const CustomAppbar({Key? key}) : super(key: key);
+class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
+  const HomeAppbar({Key? key}) : super(key: key);
 
   @override
   Size get preferredSize {
@@ -31,26 +32,36 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
               )
             ],
           ),
-          Stack(
-            children: [
-              Icon(
-                Icons.notifications_none_rounded,
-                size: 30,
-              ),
-              Positioned(
-                right: 2,
-                top: 2,
-                child: Container(
-                  height: 10,
-                  width: 10,
-                  decoration:
-                      BoxDecoration(color: Colors.red, shape: BoxShape.circle),
-                ),
-              )
-            ],
-          )
+          NotificationIcon()
         ]),
       ),
+    );
+  }
+}
+
+class CartAppbar extends StatelessWidget implements PreferredSizeWidget {
+  const CartAppbar({Key? key}) : super(key: key);
+
+  @override
+  Size get preferredSize {
+    return const Size.fromHeight(73.0);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    Size _size = MediaQuery.of(context).size;
+    return SafeArea(
+      child: Row(children: [
+        IconButton(onPressed: () {}, icon: Icon(Icons.arrow_back_ios)),
+        Text(
+          'Cart',
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        ),
+        SizedBox(
+          width: _size.width * 0.65,
+        ),
+        NotificationIcon()
+      ]),
     );
   }
 }
