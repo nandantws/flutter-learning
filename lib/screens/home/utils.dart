@@ -6,6 +6,7 @@ import 'package:helloworld/screens/detail/detail.dart';
 
 class GreyText extends StatelessWidget {
   String text;
+
   GreyText({required this.text});
 
   @override

@@ -104,7 +104,11 @@ class _ProductDetailState extends State<ProductDetail> {
                       height: size.height * 0.02,
                     ),
                     Heading(text: widget.product.name),
-                    SubHeading(text: "Description"),
+                    SubHeading(
+                      text: "Description",
+                      top: size.height * 0.02,
+                      bottom: size.height * 0.01,
+                    ),
                     ReadMoreText(widget.product.description,
                         textScaleFactor: size.height * 0.0015,
                         style: const TextStyle(
@@ -117,7 +121,11 @@ class _ProductDetailState extends State<ProductDetail> {
                             color: Colors.orange, fontWeight: FontWeight.bold),
                         lessStyle: const TextStyle(
                             color: Colors.orange, fontWeight: FontWeight.bold)),
-                    SubHeading(text: "Color"),
+                    SubHeading(
+                      text: "Color",
+                      top: size.height * 0.02,
+                      bottom: size.height * 0.01,
+                    ),
                     Row(
                       children: [
                         ...List.generate(
@@ -136,7 +144,11 @@ class _ProductDetailState extends State<ProductDetail> {
                                 )),
                       ],
                     ),
-                    SubHeading(text: "Size"),
+                    SubHeading(
+                      text: "Size",
+                      top: size.height * 0.02,
+                      bottom: size.height * 0.01,
+                    ),
                     SizedBox(
                       height: size.height * 0.055,
                       child: ListView(

@@ -52,7 +52,11 @@ class CartAppbar extends StatelessWidget implements PreferredSizeWidget {
     Size _size = MediaQuery.of(context).size;
     return SafeArea(
       child: Row(children: [
-        IconButton(onPressed: () {}, icon: Icon(Icons.arrow_back_ios)),
+        IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(Icons.arrow_back_ios)),
         Text(
           'Cart',
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),

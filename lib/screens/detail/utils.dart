@@ -17,14 +17,23 @@ class Heading extends StatelessWidget {
 
 class SubHeading extends StatelessWidget {
   final String text;
-  const SubHeading({Key? key, required this.text}) : super(key: key);
+  final double left;
+  final double top;
+  final double right;
+  final double bottom;
+
+  const SubHeading(
+      {Key? key,
+      required this.text,
+      this.left = 0,
+      this.top = 0,
+      this.right = 0,
+      this.bottom = 0})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    double top = size.height * 0.02;
-    double bottom = size.height * 0.01;
-
     return Padding(
       padding: EdgeInsets.fromLTRB(0, top, 0, bottom),
       child: Text(
@@ -135,7 +144,7 @@ class OrangeButton extends StatelessWidget {
             )),
         child: Container(
           padding: const EdgeInsets.all(10),
-          constraints: BoxConstraints(minWidth: size.width * 0.67),
+          constraints: BoxConstraints(minWidth: size.width * 0.66),
           child: Text(
             text,
             textAlign: TextAlign.center,
