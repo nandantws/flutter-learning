@@ -195,8 +195,8 @@ class _ProductDetailState extends State<ProductDetail> {
               OrangeButton(
                 text: 'Add to Cart',
                 callback: () {
-                  Navigator.push(
-                      context, MaterialPageRoute(builder: (context) => Cart()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => CartScreen()));
                 },
               )
             ],

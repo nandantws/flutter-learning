@@ -11,8 +11,16 @@ class Product {
   late final List<String> sizes;
   late final String description;
 
-  Product(this.id, this.brand, this.name, this.image, this.colors, this.price,
-      this.category, this.sizes, this.description);
+  Product(
+      {required this.id,
+      required this.brand,
+      required this.name,
+      required this.image,
+      required this.colors,
+      required this.price,
+      required this.category,
+      required this.sizes,
+      required this.description});
 
   Product.fromJson(Map<String, dynamic> json) {
     id = json["id"];
