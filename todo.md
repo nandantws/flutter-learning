@@ -1,5 +1,4 @@
 ## Cart
-    + or - quantity
     dynamic product selection
     save in shared preferences
 

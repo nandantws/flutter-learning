@@ -89,7 +89,6 @@ class CartCard extends StatelessWidget {
                                 icon: cartItem.quantity == 1
                                     ? Icon(Icons.delete)
                                     : Icon(Icons.remove)),
-                            // Text("5"),
                             Text("${cartItem.quantity}"),
                             IconButton(
                                 onPressed: () {

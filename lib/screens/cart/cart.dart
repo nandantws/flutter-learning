@@ -43,12 +43,12 @@ class _CartScreenState extends State<CartItemsListing> {
       {
         'id': 2,
         'product': {
-          'id': 1,
-          'brand': 'Puma',
-          'category': "Men's Sneaker",
-          'name': '1DERS Vegas',
-          'image': 'assets/puma.png',
-          'colors': [Colors.black, Colors.red, Colors.blue],
+          'id': 6,
+          'brand': 'Nike',
+          'category': "Men's Shoes",
+          'name': 'Nike Zoom Freak',
+          'image': 'assets/nike_zoom_freak.png',
+          'colors': [Colors.black, Colors.green],
           'price': 485,
           'sizes': ['35', '36', '37', '38', '39', '40', '41', '42', '43', '44'],
           'description':
