@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:helloworld/models/cartItem.dart';
+import 'package:helloworld/models/cart_item.dart';
 import 'package:helloworld/screens/cart/utils.dart';
 import 'package:helloworld/screens/widgets/appbars.dart';
 

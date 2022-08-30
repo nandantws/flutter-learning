@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:helloworld/models/cartItem.dart';
+import 'package:helloworld/models/cart_item.dart';
 import 'package:helloworld/screens/home/utils.dart';
 import '../detail/utils.dart';
 import "dart:math" show pi;
