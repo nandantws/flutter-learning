@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:helloworld/screens/home/productListing.dart';
 import 'package:helloworld/screens/home/utils.dart';
@@ -10,12 +11,13 @@ class Categories extends StatefulWidget {
 
 class _CategoriesState extends State<Categories> {
   late TabController tabController;
-  List _categories = [
-    'All',
-    'Nike',
-    'Addidas',
-    'Puma',
-  ];
+  // List _categories = [
+  //   'All',
+  //   'Nike',
+  //   'Addidas',
+  //   'Puma',
+  // ];
+  List _categories = ['All'];
   int selectedIndex = 0;
   List<Product> _brandProducts = [];
 
@@ -23,7 +25,21 @@ class _CategoriesState extends State<Categories> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    getCategories();
     loadData();
+  }
+
+  Future getCategories() async {
+    var categories = [];
+    var collection = FirebaseFirestore.instance.collection('categories');
+    var querySnapshot = await collection.get();
+    for (var queryDocumentSnapshot in querySnapshot.docs) {
+      categories.add(queryDocumentSnapshot.data()['name']);
+      // print(queryDocumentSnapshot.data()['name']);
+    }
+    setState(() {
+      _categories.addAll(categories);
+    });
   }
 
   loadData() {
@@ -128,7 +144,7 @@ class _CategoriesState extends State<Categories> {
         Align(
           alignment: Alignment.centerLeft,
           child: DefaultTabController(
-              length: 4,
+              length: _categories.length,
               child: Column(
                 children: [
                   TabBar(
