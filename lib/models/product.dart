@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Product {
-  late final int id;
+  late final String id;
   late final String brand;
   late final String category;
   late final String name;
@@ -26,6 +26,8 @@ class Product {
     var _colors = List<Color>.generate(json["colors"].length,
         (int index) => hexToColor(json["colors"][index]));
 
+    var _sizes = List<String>.from(json['sizes']);
+
     id = json["id"];
     brand = json["brand"];
     name = json["name"];
@@ -33,7 +35,7 @@ class Product {
     image = json["image"];
     colors = _colors;
     price = json["price"];
-    sizes = json["sizes"];
+    sizes = _sizes;
     description = json["description"];
   }
 }
