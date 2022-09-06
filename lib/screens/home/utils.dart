@@ -99,7 +99,7 @@ class ProductCard extends StatelessWidget {
                 builder: (context) => ProductDetail(product: product)));
       },
       child: Hero(
-        tag: Key(product.id.toString()),
+        tag: Key(product.id),
         child: Card(
           elevation: 2,
           shape: RoundedRectangleBorder(

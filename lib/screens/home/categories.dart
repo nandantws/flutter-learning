@@ -37,14 +37,11 @@ class _CategoriesState extends State<Categories> {
   }
 
   Future getProducts() async {
-    var _products = [];
-
     var collection = FirebaseFirestore.instance.collection('products');
     var querySnapshots = await collection.get();
     for (var queryDocumentSnapshot in querySnapshots.docs) {
-      var a = queryDocumentSnapshot.data();
-      a['id'] = queryDocumentSnapshot.id;
-      _products.add(a);
+      _brandProducts.add(Product.fromJson(
+          queryDocumentSnapshot.id, queryDocumentSnapshot.data()));
     }
     // List _products = [
     //   {
@@ -120,9 +117,6 @@ class _CategoriesState extends State<Categories> {
     //         "Continue the next evolution of speed with a racing shoe made to help you chase new goals and records. The Nike ZoomX Vaporfly NEXT% 2 builds on the model racers everywhere love. It helps improve comfort and breathability with a redesigned upper."
     //   }
     // ];
-    _brandProducts = List.from(_products)
-        .map((product) => Product.fromJson(product))
-        .toList();
   }
 
   @override
@@ -133,7 +127,7 @@ class _CategoriesState extends State<Categories> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
+            const Text(
               'Categories',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
@@ -152,7 +146,7 @@ class _CategoriesState extends State<Categories> {
                   TabBar(
                       isScrollable: true,
                       padding: EdgeInsets.zero,
-                      labelPadding: EdgeInsets.only(right: 7),
+                      labelPadding: const EdgeInsets.only(right: 7),
                       indicatorColor: Colors.transparent,
                       onTap: (index) {
                         setState(() {

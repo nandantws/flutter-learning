@@ -1,9 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:helloworld/models/product.dart';
+import 'package:helloworld/models/utils.dart';
 
 class CartItem {
   late final int id;
   late int quantity;
-  late final String color;
+  late final Color color;
   late final int size;
   late final Product product;
 
@@ -18,8 +20,8 @@ class CartItem {
   CartItem.fromJson(Map<String, dynamic> json) {
     id = json["id"];
     quantity = json["quantity"];
-    color = json["color"];
+    color = hexToColor(json["color"]);
     size = json["size"];
-    product = Product.fromJson(json["product"]);
+    product = Product.fromJson('1', json["product"]);
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:helloworld/models/utils.dart';
 
 class Product {
   late final String id;
@@ -22,13 +23,13 @@ class Product {
       required this.sizes,
       required this.description});
 
-  Product.fromJson(Map<String, dynamic> json) {
+  Product.fromJson(String productId, Map<String, dynamic> json) {
     var _colors = List<Color>.generate(json["colors"].length,
         (int index) => hexToColor(json["colors"][index]));
 
     var _sizes = List<String>.from(json['sizes']);
 
-    id = json["id"];
+    id = productId;
     brand = json["brand"];
     name = json["name"];
     category = json["category"];
@@ -38,8 +39,4 @@ class Product {
     sizes = _sizes;
     description = json["description"];
   }
-}
-
-Color hexToColor(String code) {
-  return new Color(int.parse(code.substring(1, 7), radix: 16) + 0xFF000000);
 }
