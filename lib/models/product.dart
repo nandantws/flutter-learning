@@ -23,14 +23,21 @@ class Product {
       required this.description});
 
   Product.fromJson(Map<String, dynamic> json) {
+    var _colors = List<Color>.generate(json["colors"].length,
+        (int index) => hexToColor(json["colors"][index]));
+
     id = json["id"];
     brand = json["brand"];
     name = json["name"];
     category = json["category"];
     image = json["image"];
-    colors = json["colors"];
+    colors = _colors;
     price = json["price"];
     sizes = json["sizes"];
     description = json["description"];
   }
+}
+
+Color hexToColor(String code) {
+  return new Color(int.parse(code.substring(1, 7), radix: 16) + 0xFF000000);
 }

@@ -59,7 +59,7 @@ class CategoryChip extends StatelessWidget {
 
 class ColorDots extends StatelessWidget {
   // bool isSelected;
-  List colors;
+  List<Color> colors;
   ColorDots({Key? key, required this.colors}) : super(key: key);
 
   @override
@@ -139,6 +139,7 @@ class ProductCard extends StatelessWidget {
                         height: _size.height * 0.02,
                       ),
                       ColorDots(
+                        // colors: [Colors.red, Colors.amber],
                         colors: product.colors,
                       ),
                       SizedBox(
