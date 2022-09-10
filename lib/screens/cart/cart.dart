@@ -12,7 +12,7 @@ class CartItemsListing extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartItemsListing> {
-  List _cartItems = [];
+  List cartItems = [];
 
   @override
   void initState() {
@@ -22,91 +22,31 @@ class _CartScreenState extends State<CartItemsListing> {
   }
 
   Future getCartItems() async {
-    var _items = [];
     var collection = FirebaseFirestore.instance.collection('cartItems');
     var querySnapshots = await collection.get();
     for (var queryDocumentSnapshot in querySnapshots.docs) {
-      var a = queryDocumentSnapshot.data();
-      a['id'] = queryDocumentSnapshot.id;
-      _items.add(a);
-      // List _items = [
-      //   {
-      //     'id': 1,
-      //     'product': {
-      //       'id': 1,
-      //       'brand': 'Puma',
-      //       'category': "Men's Sneaker",
-      //       'name': '1DER Vegas',
-      //       'image': 'assets/puma.png',
-      //       'colors': ['#000000', '#ff0000', '#66ccff'],
-      //       'price': 485,
-      //       'sizes': [
-      //         '35',
-      //         '36',
-      //         '37',
-      //         '38',
-      //         '39',
-      //         '40',
-      //         '41',
-      //         '42',
-      //         '43',
-      //         '44'
-      //       ],
-      //       'description':
-      //           "Continue the next evolution of speed with a racing shoe made to help you chase new goals and records. The Nike ZoomX Vaporfly NEXT% 2 builds on the model racers everywhere love. It helps improve comfort and breathability with a redesigned upper."
-      //     },
-      //     'quantity': 1,
-      //     'color': 'Red',
-      //     'size': 45
-      //   },
-      //   {
-      //     'id': 2,
-      //     'product': {
-      //       'id': 6,
-      //       'brand': 'Nike',
-      //       'category': "Men's Shoes",
-      //       'name': 'Nike Zoom Freak',
-      //       'image': 'assets/nike_zoom_freak.png',
-      //       'colors': ['#000000', '#ff0000', '#66ccff'],
-      //       'price': 485,
-      //       'sizes': [
-      //         '35',
-      //         '36',
-      //         '37',
-      //         '38',
-      //         '39',
-      //         '40',
-      //         '41',
-      //         '42',
-      //         '43',
-      //         '44'
-      //       ],
-      //       'description':
-      //           "Continue the next evolution of speed with a racing shoe made to help you chase new goals and records. The Nike ZoomX Vaporfly NEXT% 2 builds on the model racers everywhere love. It helps improve comfort and breathability with a redesigned upper."
-      //     },
-      //     'quantity': 1,
-      //     'color': 'Red',
-      //     'size': 45
-      //   },
-      // ];
-
-      _cartItems =
-          List.from(_items).map((item) => CartItem.fromJson(item)).toList();
+      DocumentReference productRef = queryDocumentSnapshot.data()['product'];
+      productRef.get().then((DocumentSnapshot documentSnapshot) {
+        setState(() {
+          cartItems.add(CartItem.fromJson(queryDocumentSnapshot.id,
+              queryDocumentSnapshot.data(), documentSnapshot));
+        });
+      });
     }
   }
 
   updateQuantity(itemId, operation) {
-    for (int i = 0; i < _cartItems.length; i++) {
-      print(_cartItems[i].id);
-      if (_cartItems[i].id == itemId) {
+    for (int i = 0; i < cartItems.length; i++) {
+      // print(_cartItems[i].id);
+      if (cartItems[i].id == itemId) {
         setState(() {
           if (operation == 'add') {
-            _cartItems[i].quantity += 1;
+            cartItems[i].quantity += 1;
           } else {
-            _cartItems[i].quantity -= 1;
+            cartItems[i].quantity -= 1;
           }
-          if (_cartItems[i].quantity == 0) {
-            _cartItems.removeAt(i);
+          if (cartItems[i].quantity == 0) {
+            cartItems.removeAt(i);
           }
         });
 
@@ -117,14 +57,16 @@ class _CartScreenState extends State<CartItemsListing> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      ...List.generate(
-          _cartItems.length,
-          (i) => CartCard(
-                cartItem: _cartItems[i],
-                handleQuantityUpdate: updateQuantity,
-              ))
-    ]);
+    return cartItems.isNotEmpty
+        ? Column(children: [
+            ...List.generate(
+                cartItems.length,
+                (i) => CartCard(
+                      cartItem: cartItems[i],
+                      handleQuantityUpdate: updateQuantity,
+                    ))
+          ])
+        : const Center(child: CircularProgressIndicator());
   }
 }
 
@@ -134,9 +76,9 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CartAppbar(),
+      appBar: const CartAppbar(),
       body: Column(
-        children: [CartItemsListing()],
+        children: const [CartItemsListing()],
       ),
     );
     //     return Scaffold(

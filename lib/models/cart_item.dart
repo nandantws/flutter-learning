@@ -1,13 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:helloworld/models/product.dart';
 import 'package:helloworld/models/utils.dart';
 
 class CartItem {
-  late final int id;
+  late final String id;
   late int quantity;
   late final Color color;
-  late final int size;
-  late final Product product;
+  late final String size;
+  late Product product;
 
   CartItem({
     required this.id,
@@ -17,11 +18,13 @@ class CartItem {
     required this.product,
   });
 
-  CartItem.fromJson(Map<String, dynamic> json) {
-    id = json["id"];
+  CartItem.fromJson(
+      cartItemId, Map<String, dynamic> json, DocumentSnapshot productSnapshot) {
+    id = cartItemId;
     quantity = json["quantity"];
     color = hexToColor(json["color"]);
     size = json["size"];
-    product = Product.fromJson('1', json["product"]);
+    product = Product.fromJson(
+        productSnapshot.id, productSnapshot.data() as Map<String, dynamic>);
   }
 }
