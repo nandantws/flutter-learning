@@ -28,7 +28,7 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
               ),
               Text(
                 'Yoru Fernandes!',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
               )
             ],
           ),

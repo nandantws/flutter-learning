@@ -29,13 +29,6 @@
             {
               "client_id": "335132221960-uj660faqclubnk0hlihlc2dadflu71tj.apps.googleusercontent.com",
               "client_type": 3
-            },
-            {
-              "client_id": "335132221960-1e8deejjtltrohaenif21ta69c7m621o.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.example.helloworld"
-              }
             }
           ]
         }

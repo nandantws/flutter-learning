@@ -36,7 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   readmore: ^2.2.0
 
-  cloud_firestore: ^3.4.6
+  cloud_firestore: ^4.8.4
 
 
 dev_dependencies:
