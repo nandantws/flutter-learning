@@ -1,6 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:helloworld/screens/home/productListing.dart';
+import 'package:helloworld/providers/category.dart';
+import 'package:helloworld/screens/home/product_listing.dart';
 import 'package:helloworld/screens/home/utils.dart';
 import 'package:provider/provider.dart';
 
@@ -13,32 +13,33 @@ class Categories extends StatefulWidget {
 
 class _CategoriesState extends State<Categories> {
   late TabController tabController;
-  final List _categories = ['All'];
+  // final List _categories = ['All'];
   int selectedIndex = 0;
 
-  @override
-  void initState() {
-    super.initState();
-    getCategories();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   getCategories();
+  // }
 
-  Future getCategories() async {
-    var categories = [];
-    var collection = FirebaseFirestore.instance.collection('categories');
-    var querySnapshot = await collection.get();
-    for (var queryDocumentSnapshot in querySnapshot.docs) {
-      categories.add(queryDocumentSnapshot.data()['name']);
-      // print(queryDocumentSnapshot.data()['name']);
-    }
-    setState(() {
-      _categories.addAll(categories);
-    });
-  }
+  // Future getCategories() async {
+  //   var categories = [];
+  //   var collection = FirebaseFirestore.instance.collection('categories');
+  //   var querySnapshot = await collection.get();
+  //   for (var queryDocumentSnapshot in querySnapshot.docs) {
+  //     categories.add(queryDocumentSnapshot.data()['name']);
+  //     // print(queryDocumentSnapshot.data()['name']);
+  //   }
+  //   setState(() {
+  //     _categories.addAll(categories);
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
-    Size _size = MediaQuery.of(context).size;
-    ProductProvider provider = Provider.of<ProductProvider>(context);
+    Size size = MediaQuery.of(context).size;
+    CategoryProvider categoryProvider = Provider.of<CategoryProvider>(context);
+    ProductProvider productProvider = Provider.of<ProductProvider>(context);
 
     return Column(
       children: [
@@ -53,12 +54,12 @@ class _CategoriesState extends State<Categories> {
           ],
         ),
         SizedBox(
-          height: _size.height * 0.025,
+          height: size.height * 0.025,
         ),
         Align(
           alignment: Alignment.centerLeft,
           child: DefaultTabController(
-              length: _categories.length,
+              length: categoryProvider.categories.length,
               child: Column(
                 children: [
                   TabBar(
@@ -73,28 +74,30 @@ class _CategoriesState extends State<Categories> {
                       },
                       tabs: [
                         ...List.generate(
-                            _categories.length,
+                            categoryProvider.categories.length,
                             (i) => Tab(
                                     child: CategoryChip(
-                                  text: _categories[i],
+                                  text: categoryProvider.categories[i],
                                   isSelected: i == selectedIndex ? true : false,
                                 )))
                       ]),
                   SizedBox(
-                    height: _size.height * 0.01,
+                    height: size.height * 0.01,
                   ),
                   ProductsGridView(
-                    products: provider.brandProducts
-                        .where((product) => _categories[selectedIndex] == 'All'
-                            ? true
-                            : product.brand == _categories[selectedIndex])
+                    products: productProvider.brandProducts
+                        .where((product) =>
+                            categoryProvider.categories[selectedIndex] == 'All'
+                                ? true
+                                : product.brand ==
+                                    categoryProvider.categories[selectedIndex])
                         .toList(),
                   )
                 ],
               )),
         ),
         SizedBox(
-          height: _size.height * 0.015,
+          height: size.height * 0.015,
         )
       ],
     );

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:helloworld/models/product.dart';
-import 'package:helloworld/providers/product.dart';
 import 'package:helloworld/screens/home/utils.dart';
-import 'package:provider/provider.dart';
 
 class ProductsGridView extends StatelessWidget {
   List<Product> products = [];

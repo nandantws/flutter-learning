@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:helloworld/providers/category.dart';
 import 'package:helloworld/providers/product.dart';
 import 'package:helloworld/screens/onboarding/onboarding.dart';
 import 'package:provider/provider.dart';
@@ -39,8 +40,12 @@ class MyApp extends StatelessWidget {
       // home: showHome ? OnboardingScreen() : Home(),
       routes: {
         '/splash': (context) => const Onboarding(),
-        '/home': (context) => ChangeNotifierProvider<ProductProvider>(
-            create: (context) => ProductProvider(), child: const Home()),
+        '/home': (context) => MultiProvider(providers: [
+              ChangeNotifierProvider<CategoryProvider>(
+                  create: (context) => CategoryProvider()),
+              ChangeNotifierProvider<ProductProvider>(
+                  create: (context) => ProductProvider()),
+            ], child: const Home()),
       },
     );
   }
