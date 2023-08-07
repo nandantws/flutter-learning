@@ -81,11 +81,5 @@ class CartScreen extends StatelessWidget {
         children: [CartItemsListing()],
       ),
     );
-    //     return Scaffold(
-    //   appBar: const CartAppbar(),
-    //   body: Column(
-    //     children: [Text('data')],
-    //   ),
-    // );
   }
 }

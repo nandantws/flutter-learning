@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:helloworld/screens/home/banner.dart';
-import 'package:helloworld/screens/home/bottomNavigationBar.dart';
 import 'package:helloworld/screens/home/categories.dart';
-import 'package:helloworld/screens/home/utils.dart';
 
 import '../widgets/appbars.dart';
 
@@ -13,20 +11,20 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       // extendBodyBehindAppBar: true,
-      appBar: HomeAppbar(),
+      appBar: const HomeAppbar(),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Container(
-            color: Color(0xFFF8F8F8),
+            color: const Color(0xFFF8F8F8),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 NewProductBanner(),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Categories(),
@@ -38,7 +36,7 @@ class Home extends StatelessWidget {
       bottomNavigationBar: BottomNavigationBar(
           showSelectedLabels: false,
           showUnselectedLabels: false,
-          items: [
+          items: const [
             BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
             BottomNavigationBarItem(icon: Icon(Icons.search), label: ''),
             BottomNavigationBarItem(icon: Icon(Icons.card_travel), label: ''),

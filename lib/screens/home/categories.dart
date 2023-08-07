@@ -2,7 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:helloworld/screens/home/productListing.dart';
 import 'package:helloworld/screens/home/utils.dart';
-import 'package:helloworld/models/product.dart';
+import 'package:provider/provider.dart';
+
+import '../../providers/product.dart';
 
 class Categories extends StatefulWidget {
   @override
@@ -11,16 +13,13 @@ class Categories extends StatefulWidget {
 
 class _CategoriesState extends State<Categories> {
   late TabController tabController;
-  List _categories = ['All'];
+  final List _categories = ['All'];
   int selectedIndex = 0;
-  List<Product> _brandProducts = [];
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getCategories();
-    getProducts();
   }
 
   Future getCategories() async {
@@ -36,92 +35,11 @@ class _CategoriesState extends State<Categories> {
     });
   }
 
-  Future getProducts() async {
-    var collection = FirebaseFirestore.instance.collection('products');
-    var querySnapshots = await collection.get();
-    for (var queryDocumentSnapshot in querySnapshots.docs) {
-      _brandProducts.add(Product.fromJson(
-          queryDocumentSnapshot.id, queryDocumentSnapshot.data()));
-    }
-    // List _products = [
-    //   {
-    //     'id': 1,
-    //     'brand': 'Puma',
-    //     'category': "Men's Sneaker",
-    //     'name': '1DER Vegas',
-    //     'image': 'assets/puma.png',
-    //     'colors': ['#000000', '#ff0000', '#66ccff'],
-    //     'price': 485,
-    //     'sizes': ['35', '36', '37', '38', '39', '40', '41', '42', '43', '44'],
-    //     'description':
-    //         "Continue the next evolution of speed with a racing shoe made to help you chase new goals and records. The Nike ZoomX Vaporfly NEXT% 2 builds on the model racers everywhere love. It helps improve comfort and breathability with a redesigned upper."
-    //   },
-    //   {
-    //     'id': 2,
-    //     'brand': 'Addidas',
-    //     'category': 'Running Shoes',
-    //     'name': 'ADISTEN M',
-    //     'image': 'assets/adidas.png',
-    //     'colors': ['#000000', '#ff0000', '#66ccff'],
-    //     'price': 485,
-    //     'sizes': ['35', '36', '37', '38', '39', '40', '41', '42', '43', '44'],
-    //     'description':
-    //         "Continue the next evolution of speed with a racing shoe made to help you chase new goals and records. The Nike ZoomX Vaporfly NEXT% 2 builds on the model racers everywhere love. It helps improve comfort and breathability with a redesigned upper."
-    //   },
-    //   {
-    //     'id': 3,
-    //     'brand': 'Nike',
-    //     'category': "Men's Shoes",
-    //     'name': 'Nike Air Pegasus',
-    //     'image': 'assets/nike_air_zoom_pegasus.png',
-    //     'colors': ['#000000', '#ff0000', '#66ccff'],
-    //     'price': 485,
-    //     'sizes': ['35', '36', '37', '38', '39', '40', '41', '42', '43', '44'],
-    //     'description':
-    //         "Continue the next evolution of speed with a racing shoe made to help you chase new goals and records. The Nike ZoomX Vaporfly NEXT% 2 builds on the model racers everywhere love. It helps improve comfort and breathability with a redesigned upper."
-    //   },
-    //   {
-    //     'id': 4,
-    //     'brand': 'Nike',
-    //     'category': "Men's Shoes",
-    //     'name': 'Nike Air Presto',
-    //     'image': 'assets/nike_air_presto.png',
-    //     'colors': ['#000000', '#ff0000', '#66ccff'],
-    //     'price': 485,
-    //     'sizes': ['35', '36', '37', '38', '39', '40', '41', '42', '43', '44'],
-    //     'description':
-    //         "Continue the next evolution of speed with a racing shoe made to help you chase new goals and records. The Nike ZoomX Vaporfly NEXT% 2 builds on the model racers everywhere love. It helps improve comfort and breathability with a redesigned upper."
-    //   },
-    //   {
-    //     'id': 5,
-    //     'brand': 'Nike',
-    //     'category': "Men's Shoes",
-    //     'name': 'Nike Air Force',
-    //     'image': 'assets/nike_air_force.png',
-    //     'colors': ['#000000', '#ff0000', '#66ccff'],
-    //     'price': 485,
-    //     'sizes': ['35', '36', '37', '38', '39', '40', '41', '42', '43', '44'],
-    //     'description':
-    //         "Continue the next evolution of speed with a racing shoe made to help you chase new goals and records. The Nike ZoomX Vaporfly NEXT% 2 builds on the model racers everywhere love. It helps improve comfort and breathability with a redesigned upper."
-    //   },
-    //   {
-    //     'id': 6,
-    //     'brand': 'Nike',
-    //     'category': "Men's Shoes",
-    //     'name': 'Nike Zoom Freak',
-    //     'image': 'assets/nike_zoom_freak.png',
-    //     'colors': ['#000000', '#ff0000', '#66ccff'],
-    //     'price': 485,
-    //     'sizes': ['35', '36', '37', '38', '39', '40', '41', '42', '43', '44'],
-    //     'description':
-    //         "Continue the next evolution of speed with a racing shoe made to help you chase new goals and records. The Nike ZoomX Vaporfly NEXT% 2 builds on the model racers everywhere love. It helps improve comfort and breathability with a redesigned upper."
-    //   }
-    // ];
-  }
-
   @override
   Widget build(BuildContext context) {
     Size _size = MediaQuery.of(context).size;
+    ProductProvider provider = Provider.of<ProductProvider>(context);
+
     return Column(
       children: [
         Row(
@@ -166,7 +84,7 @@ class _CategoriesState extends State<Categories> {
                     height: _size.height * 0.01,
                   ),
                   ProductsGridView(
-                    products: _brandProducts
+                    products: provider.brandProducts
                         .where((product) => _categories[selectedIndex] == 'All'
                             ? true
                             : product.brand == _categories[selectedIndex])
