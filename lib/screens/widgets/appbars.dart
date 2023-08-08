@@ -32,7 +32,15 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
               )
             ],
           ),
-          NotificationIcon()
+          GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(
+                context,
+                '/cart',
+              );
+            },
+            child: CartIcon(),
+          ),
         ]),
       ),
     );
@@ -49,12 +57,12 @@ class CartAppbar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size _size = MediaQuery.of(context).size;
+    Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Row(children: [
         IconButton(
             onPressed: () {
-              Navigator.pop(context);
+              Navigator.pushNamed(context, '/home');
             },
             icon: Icon(Icons.arrow_back_ios)),
         Text(
@@ -62,9 +70,9 @@ class CartAppbar extends StatelessWidget implements PreferredSizeWidget {
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),
         SizedBox(
-          width: _size.width * 0.65,
+          width: size.width * 0.65,
         ),
-        NotificationIcon()
+        // NotificationIcon()
       ]),
     );
   }

@@ -1,6 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:helloworld/models/cart_item.dart';
 import 'package:helloworld/screens/cart/utils.dart';
 import 'package:helloworld/screens/widgets/appbars.dart';
 import 'package:provider/provider.dart';
@@ -22,7 +20,7 @@ class CartItemsListing extends StatelessWidget {
                       cartItem: productProvider.cartItems[i],
                     ))
           ])
-        : const Center(child: CircularProgressIndicator());
+        : const Center(child: Text("No Items in the Cart"));
   }
 }
 
