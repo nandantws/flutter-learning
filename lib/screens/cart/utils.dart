@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:helloworld/models/cart_item.dart';
+import 'package:helloworld/providers/product.dart';
 import 'package:helloworld/screens/home/utils.dart';
+import 'package:provider/provider.dart';
 import '../detail/utils.dart';
 import "dart:math" show pi;
 
 class CartCard extends StatelessWidget {
   CartItem cartItem;
-  Function handleQuantityUpdate;
-  CartCard(
-      {Key? key, required this.cartItem, required this.handleQuantityUpdate})
-      : super(key: key);
+
+  CartCard({Key? key, required this.cartItem}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Size _size = MediaQuery.of(context).size;
-
+    Size size = MediaQuery.of(context).size;
+    ProductProvider productProvider = Provider.of<ProductProvider>(context);
     return Column(
       children: [
         Container(
@@ -34,7 +34,7 @@ class CartCard extends StatelessWidget {
                         ),
                       ),
                     )),
-                Spacer(),
+                const Spacer(),
                 Expanded(
                     flex: 6,
                     child: Column(
@@ -45,7 +45,7 @@ class CartCard extends StatelessWidget {
                         ),
                         SubHeading(
                           text: cartItem.product.name,
-                          bottom: _size.height * 0.01,
+                          bottom: size.height * 0.01,
                         ),
                         Row(
                           children: [
@@ -83,18 +83,16 @@ class CartCard extends StatelessWidget {
                         Row(
                           children: [
                             IconButton(
-                                onPressed: () {
-                                  handleQuantityUpdate(cartItem.id, 'remove');
-                                },
+                                onPressed: () => productProvider.updateQuantity(
+                                    cartItem.id, 'remove'),
                                 icon: cartItem.quantity == 1
-                                    ? Icon(Icons.delete)
-                                    : Icon(Icons.remove)),
+                                    ? const Icon(Icons.delete)
+                                    : const Icon(Icons.remove)),
                             Text("${cartItem.quantity}"),
                             IconButton(
-                                onPressed: () {
-                                  handleQuantityUpdate(cartItem.id, 'add');
-                                },
-                                icon: Icon(Icons.add)),
+                                onPressed: () => productProvider.updateQuantity(
+                                    cartItem.id, 'add'),
+                                icon: const Icon(Icons.add)),
                           ],
                         )
                       ],

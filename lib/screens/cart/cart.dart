@@ -10,26 +10,6 @@ import '../../providers/product.dart';
 class CartItemsListing extends StatelessWidget {
   const CartItemsListing({Key? key}) : super(key: key);
 
-  // List cartItems = [];
-  //   updateQuantity(itemId, operation) {
-  //   for (int i = 0; i < cartItems.length; i++) {
-  //     // print(_cartItems[i].id);
-  //     if (cartItems[i].id == itemId) {
-  //       setState(() {
-  //         if (operation == 'add') {
-  //           cartItems[i].quantity += 1;
-  //         } else {
-  //           cartItems[i].quantity -= 1;
-  //         }
-  //         if (cartItems[i].quantity == 0) {
-  //           cartItems.removeAt(i);
-  //         }
-  //       });
-
-  //       break;
-  //     }
-  //   }
-  // }
   @override
   Widget build(BuildContext context) {
     ProductProvider productProvider = Provider.of<ProductProvider>(context);
@@ -40,7 +20,6 @@ class CartItemsListing extends StatelessWidget {
                 productProvider.cartItems.length,
                 (i) => CartCard(
                       cartItem: productProvider.cartItems[i],
-                      handleQuantityUpdate: () => {},
                     ))
           ])
         : const Center(child: CircularProgressIndicator());

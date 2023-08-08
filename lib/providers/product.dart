@@ -1,8 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:helloworld/models/cart_item.dart';
+import 'package:uuid/uuid.dart';
 
 import '../models/product.dart';
+
+const uuid = Uuid();
 
 class ProductProvider with ChangeNotifier {
   final List<Product> brandProducts = [];
@@ -33,17 +36,32 @@ class ProductProvider with ChangeNotifier {
 
     if (!isAlreadyInCart) {
       cartItems.add(CartItem(
-          id: "1", quantity: 1, size: size, color: color, product: product));
+          id: uuid.v4(),
+          quantity: 1,
+          size: size,
+          color: color,
+          product: product));
     } else {
       CartItem existingItem = cartItems.firstWhere((item) =>
           item.product.id == product.id &&
           item.size == size &&
           item.color == color);
 
-      // Increase the quantity of the existing item
       existingItem.quantity++;
     }
+    notifyListeners();
+  }
 
+  updateQuantity(itemId, operation) {
+    CartItem cartItem = cartItems.firstWhere((item) => item.id == itemId);
+    if (operation == 'add') {
+      cartItem.quantity++;
+    } else {
+      cartItem.quantity--;
+    }
+    if (cartItem.quantity == 0) {
+      cartItems.remove(cartItem);
+    }
     notifyListeners();
   }
 }
