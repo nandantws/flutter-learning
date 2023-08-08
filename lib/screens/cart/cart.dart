@@ -3,67 +3,44 @@ import 'package:flutter/material.dart';
 import 'package:helloworld/models/cart_item.dart';
 import 'package:helloworld/screens/cart/utils.dart';
 import 'package:helloworld/screens/widgets/appbars.dart';
+import 'package:provider/provider.dart';
 
-class CartItemsListing extends StatefulWidget {
+import '../../providers/product.dart';
+
+class CartItemsListing extends StatelessWidget {
   const CartItemsListing({Key? key}) : super(key: key);
 
-  @override
-  State<CartItemsListing> createState() => _CartScreenState();
-}
+  // List cartItems = [];
+  //   updateQuantity(itemId, operation) {
+  //   for (int i = 0; i < cartItems.length; i++) {
+  //     // print(_cartItems[i].id);
+  //     if (cartItems[i].id == itemId) {
+  //       setState(() {
+  //         if (operation == 'add') {
+  //           cartItems[i].quantity += 1;
+  //         } else {
+  //           cartItems[i].quantity -= 1;
+  //         }
+  //         if (cartItems[i].quantity == 0) {
+  //           cartItems.removeAt(i);
+  //         }
+  //       });
 
-class _CartScreenState extends State<CartItemsListing> {
-  List cartItems = [];
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    getCartItems();
-  }
-
-  Future getCartItems() async {
-    var collection = FirebaseFirestore.instance.collection('cartItems');
-    var querySnapshots = await collection.get();
-    for (var queryDocumentSnapshot in querySnapshots.docs) {
-      DocumentReference productRef = queryDocumentSnapshot.data()['product'];
-      productRef.get().then((DocumentSnapshot documentSnapshot) {
-        setState(() {
-          cartItems.add(CartItem.fromJson(queryDocumentSnapshot.id,
-              queryDocumentSnapshot.data(), documentSnapshot));
-        });
-      });
-    }
-  }
-
-  updateQuantity(itemId, operation) {
-    for (int i = 0; i < cartItems.length; i++) {
-      // print(_cartItems[i].id);
-      if (cartItems[i].id == itemId) {
-        setState(() {
-          if (operation == 'add') {
-            cartItems[i].quantity += 1;
-          } else {
-            cartItems[i].quantity -= 1;
-          }
-          if (cartItems[i].quantity == 0) {
-            cartItems.removeAt(i);
-          }
-        });
-
-        break;
-      }
-    }
-  }
-
+  //       break;
+  //     }
+  //   }
+  // }
   @override
   Widget build(BuildContext context) {
-    return cartItems.isNotEmpty
+    ProductProvider productProvider = Provider.of<ProductProvider>(context);
+
+    return productProvider.cartItems.isNotEmpty
         ? Column(children: [
             ...List.generate(
-                cartItems.length,
+                productProvider.cartItems.length,
                 (i) => CartCard(
-                      cartItem: cartItems[i],
-                      handleQuantityUpdate: updateQuantity,
+                      cartItem: productProvider.cartItems[i],
+                      handleQuantityUpdate: () => {},
                     ))
           ])
         : const Center(child: CircularProgressIndicator());

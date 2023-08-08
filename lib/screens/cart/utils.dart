@@ -56,7 +56,7 @@ class CartCard extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              '36',
+                              cartItem.size,
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 15,
@@ -66,13 +66,13 @@ class CartCard extends StatelessWidget {
                               width: 30,
                             ),
                             Text(
-                              'Color : ',
+                              "Color:",
                               style: TextStyle(
                                 fontSize: 15,
                               ),
                             ),
                             Text(
-                              'Blue',
+                              cartItem.color.value.toRadixString(16),
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 15,

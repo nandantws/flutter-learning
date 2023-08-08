@@ -13,27 +13,7 @@ class Categories extends StatefulWidget {
 
 class _CategoriesState extends State<Categories> {
   late TabController tabController;
-  // final List _categories = ['All'];
   int selectedIndex = 0;
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   getCategories();
-  // }
-
-  // Future getCategories() async {
-  //   var categories = [];
-  //   var collection = FirebaseFirestore.instance.collection('categories');
-  //   var querySnapshot = await collection.get();
-  //   for (var queryDocumentSnapshot in querySnapshot.docs) {
-  //     categories.add(queryDocumentSnapshot.data()['name']);
-  //     // print(queryDocumentSnapshot.data()['name']);
-  //   }
-  //   setState(() {
-  //     _categories.addAll(categories);
-  //   });
-  // }
 
   @override
   Widget build(BuildContext context) {

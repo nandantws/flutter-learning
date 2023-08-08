@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:helloworld/models/product.dart';
 import 'package:helloworld/screens/detail/utils.dart';
 import 'package:helloworld/screens/home/utils.dart';
+import 'package:provider/provider.dart';
 import 'package:readmore/readmore.dart';
 import "dart:math" show pi;
 
+import '../../providers/product.dart';
 import '../cart/cart.dart';
 
 class ProductDetail extends StatefulWidget {
@@ -23,6 +25,7 @@ class _ProductDetailState extends State<ProductDetail> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    ProductProvider productProvider = Provider.of<ProductProvider>(context);
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -195,6 +198,10 @@ class _ProductDetailState extends State<ProductDetail> {
               OrangeButton(
                 text: 'Add to Cart',
                 callback: () {
+                  productProvider.addToCart(
+                      widget.product.id,
+                      widget.product.sizes[selectedSizeIndex],
+                      widget.product.colors[selectedColorIndex]);
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => CartScreen()));
                 },

@@ -15,5 +15,6 @@ class CategoryProvider with ChangeNotifier {
       categories.add(queryDocumentSnapshot.data()['name']);
       // print(queryDocumentSnapshot.data()['name']);
     }
+    notifyListeners();
   }
 }
