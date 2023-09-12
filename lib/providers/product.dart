@@ -1,7 +1,9 @@
+import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:helloworld/models/cart_item.dart';
 import 'package:uuid/uuid.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/product.dart';
 
@@ -10,9 +12,15 @@ const uuid = Uuid();
 class ProductProvider with ChangeNotifier {
   final List<Product> brandProducts = [];
   List<CartItem> cartItems = [];
+  late SharedPreferences _prefs;
 
   ProductProvider() {
     getProducts();
+    initPrefs();
+  }
+
+  initPrefs() async {
+    _prefs = await SharedPreferences.getInstance();
   }
 
   Future getProducts() async {
@@ -23,6 +31,21 @@ class ProductProvider with ChangeNotifier {
           queryDocumentSnapshot.id, queryDocumentSnapshot.data()));
     }
     notifyListeners();
+  }
+
+  void getCartItems() async {
+    String? jsonString = _prefs.getString('cartItems');
+
+    if (jsonString != null) {
+      var decodedData = json.decode(jsonString);
+      cartItems = await CartItem.cartItemsListFromJson(decodedData);
+      notifyListeners();
+    }
+  }
+
+  void saveCartItems() async {
+    _prefs.setString(
+        'cartItems', json.encode(CartItem.cartItemsListToJson(cartItems)));
   }
 
   addToCart(String productId, String size, Color color) {
@@ -49,6 +72,7 @@ class ProductProvider with ChangeNotifier {
 
       existingItem.quantity++;
     }
+    saveCartItems();
     notifyListeners();
   }
 

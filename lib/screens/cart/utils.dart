@@ -8,7 +8,6 @@ import "dart:math" show pi;
 
 class CartCard extends StatelessWidget {
   CartItem cartItem;
-
   CartCard({Key? key, required this.cartItem}) : super(key: key);
 
   @override
@@ -49,7 +48,7 @@ class CartCard extends StatelessWidget {
                         ),
                         Row(
                           children: [
-                            Text(
+                            const Text(
                               'Size : ',
                               style: TextStyle(
                                 fontSize: 15,
@@ -57,15 +56,15 @@ class CartCard extends StatelessWidget {
                             ),
                             Text(
                               cartItem.size,
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 15,
                                   color: Color.fromARGB(255, 0, 0, 0)),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 30,
                             ),
-                            Text(
+                            const Text(
                               "Color:",
                               style: TextStyle(
                                 fontSize: 15,
@@ -73,7 +72,7 @@ class CartCard extends StatelessWidget {
                             ),
                             Text(
                               cartItem.color.value.toRadixString(16),
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 15,
                                   color: Color.fromARGB(255, 0, 0, 0)),
@@ -101,7 +100,7 @@ class CartCard extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 15,
         )
       ],

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:helloworld/models/utils.dart';
 
@@ -24,19 +25,36 @@ class Product {
       required this.description});
 
   Product.fromJson(String productId, Map<String, dynamic> json) {
-    var _colors = List<Color>.generate(json["colors"].length,
+    var colorsList = List<Color>.generate(json["colors"].length,
         (int index) => hexToColor(json["colors"][index]));
 
-    var _sizes = List<String>.from(json['sizes']);
+    var sizesList = List<String>.from(json['sizes']);
 
     id = productId;
     brand = json["brand"];
     name = json["name"];
     category = json["category"];
     image = json["image"];
-    colors = _colors;
+    colors = colorsList;
     price = json["price"];
-    sizes = _sizes;
+    sizes = sizesList;
     description = json["description"];
+  }
+
+  factory Product.fromDocumentSnapshot(DocumentSnapshot documentSnapshot) {
+    Map<String, dynamic> data = documentSnapshot.data() as Map<String, dynamic>;
+    return Product.fromJson(documentSnapshot.id, data);
+  }
+
+  static Future<Product> getProductById(String documentId) async {
+    var collection = FirebaseFirestore.instance.collection('products');
+    var documentReference = collection.doc(documentId);
+    var documentSnapshot = await documentReference.get();
+    return Product.fromDocumentSnapshot(documentSnapshot);
+
+    // if (documentSnapshot.exists) {
+    // } else {
+    //   return null; // Return null if the document does not exist
+    // }
   }
 }

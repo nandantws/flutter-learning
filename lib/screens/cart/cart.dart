@@ -5,8 +5,19 @@ import 'package:provider/provider.dart';
 
 import '../../providers/product.dart';
 
-class CartItemsListing extends StatelessWidget {
+class CartItemsListing extends StatefulWidget {
   const CartItemsListing({Key? key}) : super(key: key);
+
+  @override
+  State<CartItemsListing> createState() => _CartItemsListingState();
+}
+
+class _CartItemsListingState extends State<CartItemsListing> {
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<ProductProvider>(context, listen: false).getCartItems();
+  }
 
   @override
   Widget build(BuildContext context) {
