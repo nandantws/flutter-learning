@@ -86,6 +86,7 @@ class ProductProvider with ChangeNotifier {
     if (cartItem.quantity == 0) {
       cartItems.remove(cartItem);
     }
+    saveCartItems();
     notifyListeners();
   }
 }
