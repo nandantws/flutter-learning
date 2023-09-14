@@ -6,13 +6,14 @@ import 'package:helloworld/screens/detail/detail.dart';
 
 class GreyText extends StatelessWidget {
   String text;
+
   GreyText({required this.text});
 
   @override
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: TextStyle(
+      style: const TextStyle(
         color: Colors.black26,
         fontSize: 15,
       ),
@@ -58,7 +59,7 @@ class CategoryChip extends StatelessWidget {
 
 class ColorDots extends StatelessWidget {
   // bool isSelected;
-  List colors;
+  List<Color> colors;
   ColorDots({Key? key, required this.colors}) : super(key: key);
 
   @override
@@ -97,92 +98,97 @@ class ProductCard extends StatelessWidget {
             MaterialPageRoute(
                 builder: (context) => ProductDetail(product: product)));
       },
-      child: Card(
-        elevation: 2,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15.0),
-        ),
-        child: Stack(
-          children: [
-            Column(children: [
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: _size.width * 0.05),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: _size.height * 0.02,
-                    ),
-                    GreyText(text: product.category),
-                    SizedBox(
-                      height: _size.height * 0.01,
-                    ),
-                    SizedBox(
-                      height: _size.height * 0.065,
-                      child: Text(
-                        product.name,
-                        style: TextStyle(
-                            fontSize: _size.width * 0.05,
-                            fontWeight: FontWeight.bold),
+      child: Hero(
+        tag: Key(product.id),
+        child: Card(
+          elevation: 2,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
+          ),
+          child: Stack(
+            children: [
+              Column(children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: _size.width * 0.05),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: _size.height * 0.02,
                       ),
-                    ),
-                    Container(
-                      height: _size.height * 0.15,
-                      child: Transform.rotate(
-                          angle: -(pi / 9), child: Image.asset(product.image)),
-                    ),
-                    SizedBox(
-                      height: _size.height * 0.02,
-                    ),
-                    ColorDots(
-                      colors: product.colors,
-                    ),
-                    SizedBox(
-                      height: _size.height * 0.01,
-                    ),
-                    Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            '\$' + product.price.toString(),
-                            style: TextStyle(
-                                fontSize: 21, fontWeight: FontWeight.bold),
-                          )
-                        ])
-                  ],
+                      GreyText(text: product.category),
+                      SizedBox(
+                        height: _size.height * 0.01,
+                      ),
+                      SizedBox(
+                        height: _size.height * 0.065,
+                        child: Text(
+                          product.name,
+                          style: TextStyle(
+                              fontSize: _size.width * 0.05,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Container(
+                        height: _size.height * 0.15,
+                        child: Transform.rotate(
+                            angle: -(pi / 9),
+                            child: Image.asset(product.image)),
+                      ),
+                      SizedBox(
+                        height: _size.height * 0.02,
+                      ),
+                      ColorDots(
+                        // colors: [Colors.red, Colors.amber],
+                        colors: product.colors,
+                      ),
+                      SizedBox(
+                        height: _size.height * 0.01,
+                      ),
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              '\$' + product.price.toString(),
+                              style: TextStyle(
+                                  fontSize: 21, fontWeight: FontWeight.bold),
+                            )
+                          ])
+                    ],
+                  ),
                 ),
-              ),
-            ]),
-            Align(
-              alignment: Alignment.bottomRight,
-              child: Container(
-                height: _size.height * 0.055,
-                width: _size.width * 0.11,
+              ]),
+              Align(
+                alignment: Alignment.bottomRight,
+                child: Container(
+                  height: _size.height * 0.055,
+                  width: _size.width * 0.11,
 
-                child: Icon(
-                  Icons.add,
-                  color: Colors.white,
-                  size: _size.width * 0.07,
+                  child: Icon(
+                    Icons.add,
+                    color: Colors.white,
+                    size: _size.width * 0.07,
+                  ),
+                  decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.topRight,
+                        colors: [
+                          Color(0xFFF58524),
+                          Color(0xFFF2923E),
+                          Color(0xFFF6A656),
+                        ],
+                      ),
+                      // color: Colors.orange,
+                      shape: BoxShape.rectangle,
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(15),
+                          bottomRight: Radius.circular(15))),
+                  // width: ,
                 ),
-                decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.topRight,
-                      colors: [
-                        Color(0xFFF58524),
-                        Color(0xFFF2923E),
-                        Color(0xFFF6A656),
-                      ],
-                    ),
-                    // color: Colors.orange,
-                    shape: BoxShape.rectangle,
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(15),
-                        bottomRight: Radius.circular(15))),
-                // width: ,
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

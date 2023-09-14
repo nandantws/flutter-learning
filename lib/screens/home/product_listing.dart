@@ -8,17 +8,17 @@ class ProductsGridView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size _size = MediaQuery.of(context).size;
+    Size size = MediaQuery.of(context).size;
 
     return GridView.builder(
       shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
+      physics: const NeverScrollableScrollPhysics(),
       itemCount: products.length,
-      padding: EdgeInsets.only(bottom: _size.height * 0.02),
+      padding: EdgeInsets.only(bottom: size.height * 0.02),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          mainAxisSpacing: _size.height * 0.015,
-          crossAxisSpacing: _size.height * 0.015,
-          mainAxisExtent: _size.height * 0.37,
+          mainAxisSpacing: size.height * 0.015,
+          crossAxisSpacing: size.height * 0.015,
+          mainAxisExtent: size.height * 0.37,
           crossAxisCount: 2),
       itemBuilder: (_, index) {
         return ProductCard(

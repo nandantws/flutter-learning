@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:helloworld/screens/home/productListing.dart';
+import 'package:helloworld/providers/category.dart';
+import 'package:helloworld/screens/home/product_listing.dart';
 import 'package:helloworld/screens/home/utils.dart';
-import 'package:helloworld/models/product.dart';
+import 'package:provider/provider.dart';
+
+import '../../providers/product.dart';
 
 class Categories extends StatefulWidget {
   @override
@@ -10,112 +13,20 @@ class Categories extends StatefulWidget {
 
 class _CategoriesState extends State<Categories> {
   late TabController tabController;
-  List _categories = [
-    'All',
-    'Nike',
-    'Addidas',
-    'Puma',
-  ];
   int selectedIndex = 0;
-  List<Product> _brandProducts = [];
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    loadData();
-  }
-
-  loadData() {
-    List _products = [
-      {
-        'id': 1,
-        'brand': 'Puma',
-        'category': "Men's Sneaker",
-        'name': '1DER Vegas',
-        'image': 'assets/puma.png',
-        'colors': [Colors.black, Colors.red, Colors.blue],
-        'price': 485,
-        'sizes': ['35', '36', '37', '38', '39', '40', '41', '42', '43', '44'],
-        'description':
-            "Continue the next evolution of speed with a racing shoe made to help you chase new goals and records. The Nike ZoomX Vaporfly NEXT% 2 builds on the model racers everywhere love. It helps improve comfort and breathability with a redesigned upper."
-      },
-      {
-        'id': 2,
-        'brand': 'Addidas',
-        'category': 'Running Shoes',
-        'name': 'ADISTEN M',
-        'image': 'assets/adidas.png',
-        'colors': [Colors.black, Colors.blueAccent, Colors.grey],
-        'price': 485,
-        'sizes': ['35', '36', '37', '38', '39', '40', '41', '42', '43', '44'],
-        'description':
-            "Continue the next evolution of speed with a racing shoe made to help you chase new goals and records. The Nike ZoomX Vaporfly NEXT% 2 builds on the model racers everywhere love. It helps improve comfort and breathability with a redesigned upper."
-      },
-      {
-        'id': 3,
-        'brand': 'Nike',
-        'category': "Men's Shoes",
-        'name': 'Nike Air Pegasus',
-        'image': 'assets/nike_air_zoom_pegasus.png',
-        'colors': [Colors.black, Colors.green],
-        'price': 485,
-        'sizes': ['35', '36', '37', '38', '39', '40', '41', '42', '43', '44'],
-        'description':
-            "Continue the next evolution of speed with a racing shoe made to help you chase new goals and records. The Nike ZoomX Vaporfly NEXT% 2 builds on the model racers everywhere love. It helps improve comfort and breathability with a redesigned upper."
-      },
-      {
-        'id': 4,
-        'brand': 'Nike',
-        'category': "Men's Shoes",
-        'name': 'Nike Air Presto',
-        'image': 'assets/nike_air_presto.png',
-        'colors': [Colors.black, Colors.green],
-        'price': 485,
-        'sizes': ['35', '36', '37', '38', '39', '40', '41', '42', '43', '44'],
-        'description':
-            "Continue the next evolution of speed with a racing shoe made to help you chase new goals and records. The Nike ZoomX Vaporfly NEXT% 2 builds on the model racers everywhere love. It helps improve comfort and breathability with a redesigned upper."
-      },
-      {
-        'id': 5,
-        'brand': 'Nike',
-        'category': "Men's Shoes",
-        'name': 'Nike Air Force',
-        'image': 'assets/nike_air_force.png',
-        'colors': [Colors.black, Colors.green],
-        'price': 485,
-        'sizes': ['35', '36', '37', '38', '39', '40', '41', '42', '43', '44'],
-        'description':
-            "Continue the next evolution of speed with a racing shoe made to help you chase new goals and records. The Nike ZoomX Vaporfly NEXT% 2 builds on the model racers everywhere love. It helps improve comfort and breathability with a redesigned upper."
-      },
-      {
-        'id': 6,
-        'brand': 'Nike',
-        'category': "Men's Shoes",
-        'name': 'Nike Zoom Freak',
-        'image': 'assets/nike_zoom_freak.png',
-        'colors': [Colors.black, Colors.green],
-        'price': 485,
-        'sizes': ['35', '36', '37', '38', '39', '40', '41', '42', '43', '44'],
-        'description':
-            "Continue the next evolution of speed with a racing shoe made to help you chase new goals and records. The Nike ZoomX Vaporfly NEXT% 2 builds on the model racers everywhere love. It helps improve comfort and breathability with a redesigned upper."
-      }
-    ];
-
-    _brandProducts = List.from(_products)
-        .map((product) => Product.fromJson(product))
-        .toList();
-  }
 
   @override
   Widget build(BuildContext context) {
-    Size _size = MediaQuery.of(context).size;
+    Size size = MediaQuery.of(context).size;
+    CategoryProvider categoryProvider = Provider.of<CategoryProvider>(context);
+    ProductProvider productProvider = Provider.of<ProductProvider>(context);
+
     return Column(
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
+            const Text(
               'Categories',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
@@ -123,18 +34,18 @@ class _CategoriesState extends State<Categories> {
           ],
         ),
         SizedBox(
-          height: _size.height * 0.025,
+          height: size.height * 0.025,
         ),
         Align(
           alignment: Alignment.centerLeft,
           child: DefaultTabController(
-              length: 4,
+              length: categoryProvider.categories.length,
               child: Column(
                 children: [
                   TabBar(
                       isScrollable: true,
                       padding: EdgeInsets.zero,
-                      labelPadding: EdgeInsets.only(right: 7),
+                      labelPadding: const EdgeInsets.only(right: 7),
                       indicatorColor: Colors.transparent,
                       onTap: (index) {
                         setState(() {
@@ -143,28 +54,30 @@ class _CategoriesState extends State<Categories> {
                       },
                       tabs: [
                         ...List.generate(
-                            _categories.length,
+                            categoryProvider.categories.length,
                             (i) => Tab(
                                     child: CategoryChip(
-                                  text: _categories[i],
+                                  text: categoryProvider.categories[i],
                                   isSelected: i == selectedIndex ? true : false,
                                 )))
                       ]),
                   SizedBox(
-                    height: _size.height * 0.01,
+                    height: size.height * 0.01,
                   ),
                   ProductsGridView(
-                    products: _brandProducts
-                        .where((product) => _categories[selectedIndex] == 'All'
-                            ? true
-                            : product.brand == _categories[selectedIndex])
+                    products: productProvider.brandProducts
+                        .where((product) =>
+                            categoryProvider.categories[selectedIndex] == 'All'
+                                ? true
+                                : product.brand ==
+                                    categoryProvider.categories[selectedIndex])
                         .toList(),
                   )
                 ],
               )),
         ),
         SizedBox(
-          height: _size.height * 0.015,
+          height: size.height * 0.015,
         )
       ],
     );

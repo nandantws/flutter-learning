@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:helloworld/models/product.dart';
 import 'package:helloworld/screens/detail/utils.dart';
 import 'package:helloworld/screens/home/utils.dart';
+import 'package:provider/provider.dart';
 import 'package:readmore/readmore.dart';
 import "dart:math" show pi;
+
+import '../../providers/product.dart';
+import '../cart/cart.dart';
 
 class ProductDetail extends StatefulWidget {
   final Product product;
@@ -21,6 +25,7 @@ class _ProductDetailState extends State<ProductDetail> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    ProductProvider productProvider = Provider.of<ProductProvider>(context);
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -80,11 +85,14 @@ class _ProductDetailState extends State<ProductDetail> {
                   SizedBox(
                     height: size.height * 0.05,
                   ),
-                  Transform.rotate(
-                    angle: -(pi / 9),
-                    child: SizedBox(
-                        height: size.height * 0.2,
-                        child: Image.asset(widget.product.image)),
+                  Hero(
+                    tag: Key(widget.product.id.toString()),
+                    child: Transform.rotate(
+                      angle: -(pi / 9),
+                      child: SizedBox(
+                          height: size.height * 0.2,
+                          child: Image.asset(widget.product.image)),
+                    ),
                   ),
                 ],
               ),
@@ -99,7 +107,11 @@ class _ProductDetailState extends State<ProductDetail> {
                       height: size.height * 0.02,
                     ),
                     Heading(text: widget.product.name),
-                    SubHeading(text: "Description"),
+                    SubHeading(
+                      text: "Description",
+                      top: size.height * 0.02,
+                      bottom: size.height * 0.01,
+                    ),
                     ReadMoreText(widget.product.description,
                         textScaleFactor: size.height * 0.0015,
                         style: const TextStyle(
@@ -112,7 +124,11 @@ class _ProductDetailState extends State<ProductDetail> {
                             color: Colors.orange, fontWeight: FontWeight.bold),
                         lessStyle: const TextStyle(
                             color: Colors.orange, fontWeight: FontWeight.bold)),
-                    SubHeading(text: "Color"),
+                    SubHeading(
+                      text: "Color",
+                      top: size.height * 0.02,
+                      bottom: size.height * 0.01,
+                    ),
                     Row(
                       children: [
                         ...List.generate(
@@ -131,7 +147,11 @@ class _ProductDetailState extends State<ProductDetail> {
                                 )),
                       ],
                     ),
-                    SubHeading(text: "Size"),
+                    SubHeading(
+                      text: "Size",
+                      top: size.height * 0.02,
+                      bottom: size.height * 0.01,
+                    ),
                     SizedBox(
                       height: size.height * 0.055,
                       child: ListView(
@@ -175,7 +195,17 @@ class _ProductDetailState extends State<ProductDetail> {
               SizedBox(
                 width: size.width * 0.06,
               ),
-              OrangeButton(text: 'Buy Now')
+              OrangeButton(
+                text: 'Add to Cart',
+                callback: () {
+                  productProvider.addToCart(
+                      widget.product.id,
+                      widget.product.sizes[selectedSizeIndex],
+                      widget.product.colors[selectedColorIndex]);
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => CartScreen()));
+                },
+              )
             ],
           ),
         ),
