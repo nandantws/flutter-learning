@@ -13,7 +13,7 @@ class GreyText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: TextStyle(
+      style: const TextStyle(
         color: Colors.black26,
         fontSize: 15,
       ),

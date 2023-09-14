@@ -1,10 +1,11 @@
+import "dart:math" show pi;
 import 'package:flutter/material.dart';
+
 import 'package:helloworld/models/cart_item.dart';
 import 'package:helloworld/providers/product.dart';
 import 'package:helloworld/screens/home/utils.dart';
 import 'package:provider/provider.dart';
 import '../detail/utils.dart';
-import "dart:math" show pi;
 
 class CartCard extends StatelessWidget {
   CartItem cartItem;
@@ -70,13 +71,7 @@ class CartCard extends StatelessWidget {
                                 fontSize: 15,
                               ),
                             ),
-                            Text(
-                              cartItem.color.value.toRadixString(16),
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15,
-                                  color: Color.fromARGB(255, 0, 0, 0)),
-                            ),
+                            ColorCircle(color: cartItem.color, selected: false),
                           ],
                         ),
                         Row(
