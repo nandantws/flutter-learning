@@ -118,8 +118,8 @@ class SizeChip extends StatelessWidget {
 
 class OrangeButton extends StatelessWidget {
   final String text;
-  final VoidCallback callback;
-  const OrangeButton({Key? key, required this.text, required this.callback});
+  final VoidCallback onPressed;
+  const OrangeButton({Key? key, required this.text, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -129,7 +129,7 @@ class OrangeButton extends StatelessWidget {
         padding: const EdgeInsets.all(0.0),
         elevation: 5,
       ),
-      onPressed: callback,
+      onPressed: onPressed,
       child: Ink(
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5),

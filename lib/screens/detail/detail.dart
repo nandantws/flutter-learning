@@ -197,7 +197,7 @@ class _ProductDetailState extends State<ProductDetail> {
               ),
               OrangeButton(
                 text: 'Add to Cart',
-                callback: () {
+                onPressed: () {
                   productProvider.addToCart(
                       widget.product.id,
                       widget.product.sizes[selectedSizeIndex],
