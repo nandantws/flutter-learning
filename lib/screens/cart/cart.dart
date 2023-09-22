@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:helloworld/screens/cart/utils.dart';
+import 'package:helloworld/screens/detail/utils.dart';
 import 'package:helloworld/screens/widgets/appbars.dart';
 import 'package:provider/provider.dart';
 
+import '../../handlers/authentication.dart';
 import '../../providers/product.dart';
 
 class CartItemsListing extends StatefulWidget {
@@ -36,14 +38,22 @@ class _CartItemsListingState extends State<CartItemsListing> {
 }
 
 class CartScreen extends StatelessWidget {
-  const CartScreen({Key? key}) : super(key: key);
+  CartScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       appBar: CartAppbar(),
       body: Column(
-        children: [CartItemsListing()],
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          CartItemsListing(),
+          OrangeButton(
+              text: "Proceed to Checkout",
+              onPressed: () {
+                checkAuthAndRedirect(context, '/checkout');
+              })
+        ],
       ),
     );
   }

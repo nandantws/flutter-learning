@@ -119,7 +119,7 @@ class SizeChip extends StatelessWidget {
 class OrangeButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
-  const OrangeButton({Key? key, required this.text, required this.onPressed});
+  OrangeButton({Key? key, required this.text, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {

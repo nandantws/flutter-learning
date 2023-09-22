@@ -44,11 +44,14 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
             },
             child: const CartIcon(),
           ),
-          GestureDetector(
-            onTap: () {
-              authProvider.logout(context);
-            },
-            child: const Icon(Icons.logout),
+          Visibility(
+            visible: authProvider.user != null,
+            child: GestureDetector(
+              onTap: () {
+                authProvider.logout(context);
+              },
+              child: const Icon(Icons.logout),
+            ),
           ),
         ]),
       ),

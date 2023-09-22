@@ -6,6 +6,7 @@ import 'package:helloworld/screens/Authentication/auth_page.dart';
 import 'package:helloworld/screens/Authentication/login.dart';
 import 'package:helloworld/screens/Authentication/signup.dart';
 import 'package:helloworld/screens/cart/cart.dart';
+import 'package:helloworld/screens/checkout/summary.dart';
 import 'package:helloworld/screens/onboarding/onboarding.dart';
 import 'package:provider/provider.dart';
 import 'screens/home/home.dart';
@@ -52,10 +53,11 @@ class MyApp extends StatelessWidget {
         routes: {
           '/splash': (context) => const Onboarding(),
           '/auth': (context) => const AuthPage(),
-          '/login': (context) => LoginScreen(),
+          '/login': (context) => const LoginScreen(),
           '/signup': (context) => SignupScreen(),
           '/home': (context) => const Home(),
-          '/cart': (context) => const CartScreen(),
+          '/cart': (context) => CartScreen(),
+          '/checkout': (context) => const CheckoutScreen(),
         },
       ),
     );

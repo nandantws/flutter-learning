@@ -24,7 +24,7 @@ class _OnboardingState extends State<Onboarding> {
     prefs = await SharedPreferences.getInstance();
     showHome = prefs.getBool('showHome') ?? true;
     if (!showHome) {
-      Navigator.pushNamedAndRemoveUntil(context, '/auth', (route) => false);
+      Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
     }
   }
 
