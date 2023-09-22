@@ -1,11 +1,10 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:helloworld/providers/authentication.dart';
 import 'package:helloworld/screens/home/utils.dart';
 import 'package:helloworld/screens/widgets/utils.dart';
 
 class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
   HomeAppbar({Key? key}) : super(key: key);
-  final user = FirebaseAuth.instance.currentUser;
   @override
   Size get preferredSize {
     return const Size.fromHeight(73.0);
@@ -14,7 +13,7 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    String? displayName = user?.email ?? "Guest";
+    AuthProvider authProvider = AuthProvider();
 
     return SafeArea(
       child: Padding(
@@ -26,12 +25,13 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               GreyText(text: "Welcome Back"),
-              SizedBox(
+              const SizedBox(
                 height: 7,
               ),
               Text(
-                displayName,
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                authProvider.user?.email ?? "Guest",
+                style:
+                    const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
               )
             ],
           ),
@@ -42,13 +42,13 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
                 '/cart',
               );
             },
-            child: CartIcon(),
+            child: const CartIcon(),
           ),
           GestureDetector(
             onTap: () {
-              FirebaseAuth.instance.signOut();
+              authProvider.logout(context);
             },
-            child: Icon(Icons.logout),
+            child: const Icon(Icons.logout),
           ),
         ]),
       ),
@@ -73,8 +73,8 @@ class CartAppbar extends StatelessWidget implements PreferredSizeWidget {
             onPressed: () {
               Navigator.pushNamed(context, '/home');
             },
-            icon: Icon(Icons.arrow_back_ios)),
-        Text(
+            icon: const Icon(Icons.arrow_back_ios)),
+        const Text(
           'Cart',
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),

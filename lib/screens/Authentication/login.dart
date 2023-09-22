@@ -1,5 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:helloworld/providers/authentication.dart';
 import 'package:helloworld/screens/Authentication/input_fields.dart';
 import 'package:helloworld/screens/detail/utils.dart';
 
@@ -12,31 +12,9 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController emailController = TextEditingController();
-
   final TextEditingController passwordController = TextEditingController();
 
-  void handleLogin() async {
-    print('handleLogin');
-    print(emailController.text);
-    print(passwordController.text);
-    print('---------------------------');
-    showDialog(
-        context: context,
-        builder: (context) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        });
-    try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: emailController.text, password: passwordController.text);
-    } on FirebaseAuthException catch (e) {
-      print('---------------------------------------------------------->');
-      print(e.message);
-    }
-
-    Navigator.pop(context);
-  }
+  AuthProvider authProvider = AuthProvider();
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +59,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 OrangeButton(
                   text: 'Login',
-                  onPressed: handleLogin,
+                  onPressed: () {
+                    authProvider.login(
+                        context, emailController.text, passwordController.text);
+                  },
                 ),
                 const SizedBox(
                   height: 50,

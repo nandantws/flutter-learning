@@ -2,18 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:helloworld/screens/Authentication/input_fields.dart';
 import 'package:helloworld/screens/detail/utils.dart';
 
-// write a void callback function
-void callback() {
-  print('Hello World');
-}
+import '../../providers/authentication.dart';
 
-class SignupScreen extends StatelessWidget {
+class SignupScreen extends StatefulWidget {
   SignupScreen({super.key});
 
+  @override
+  State<SignupScreen> createState() => _SignupScreenState();
+}
+
+class _SignupScreenState extends State<SignupScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
 
+  AuthProvider authProvider = AuthProvider();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,28 +26,28 @@ class SignupScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
+                const Text(
                   'Welcome to Style Footwear',
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
-                Text(
+                const Text(
                   'Create an account to view wishlist \nand continue transaction',
                   style: TextStyle(
                     fontSize: 16,
                   ),
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 50,
                 ),
                 TextInputField(
                   label: "Email",
                   controller: emailController,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 TextInputField(
@@ -52,7 +55,7 @@ class SignupScreen extends StatelessWidget {
                   controller: passwordController,
                   obscureText: true,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 TextInputField(
@@ -60,17 +63,23 @@ class SignupScreen extends StatelessWidget {
                   controller: confirmPasswordController,
                   obscureText: true,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 OrangeButton(
                   text: 'Sign Up',
-                  onPressed: callback,
+                  onPressed: () {
+                    authProvider.signup(
+                        context,
+                        emailController.text,
+                        passwordController.text,
+                        confirmPasswordController.text);
+                  },
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 50,
                 ),
-                Padding(
+                const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 25.0),
                   child: Row(
                     children: [
@@ -93,20 +102,20 @@ class SignupScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                Row(
+                const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     SquareTile(),
                     SquareTile(),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 50,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
+                    const Text(
                       'Already have an account?',
                       style: TextStyle(fontWeight: FontWeight.w700),
                     ),
@@ -114,7 +123,7 @@ class SignupScreen extends StatelessWidget {
                         onPressed: () {
                           Navigator.pushNamed(context, '/login');
                         },
-                        child: Text(
+                        child: const Text(
                           'Login',
                           style: TextStyle(
                             fontWeight: FontWeight.w700,
