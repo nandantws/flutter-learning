@@ -10,13 +10,12 @@ class Onboarding extends StatefulWidget {
 
 class _OnboardingState extends State<Onboarding> {
   // final prefs = await SharedPreferences.getInstance();
-  late final prefs;
-  late final showHome;
+  late SharedPreferences prefs;
+  late bool showHome;
   // bool showHome = true;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getShowHome();
   }
@@ -33,7 +32,7 @@ class _OnboardingState extends State<Onboarding> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
@@ -47,11 +46,11 @@ class _OnboardingState extends State<Onboarding> {
         child: Column(
           children: [
             const SizedBox(height: 100),
-            Image(
+            const Image(
               image: AssetImage('assets/shoe.png'),
             ),
             const SizedBox(height: 50),
-            Text(
+            const Text(
               'Comfort is everything',
               textAlign: TextAlign.center,
               style: TextStyle(
@@ -61,8 +60,8 @@ class _OnboardingState extends State<Onboarding> {
               ),
             ),
             const SizedBox(height: 30),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 18),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 18),
               child: Text(
                 'Find the best shoes for your comfort in your daily activities',
                 textAlign: TextAlign.center,
@@ -77,7 +76,8 @@ class _OnboardingState extends State<Onboarding> {
             ElevatedButton(
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(Colors.white),
-                foregroundColor: MaterialStateProperty.all(Color(0xFFF2923E)),
+                foregroundColor:
+                    MaterialStateProperty.all(const Color(0xFFF2923E)),
                 fixedSize: MaterialStateProperty.all(const Size(300, 50)),
               ),
               onPressed: () {
@@ -85,7 +85,7 @@ class _OnboardingState extends State<Onboarding> {
                     context, '/home', (route) => false);
                 prefs.setBool('showHome', false);
               },
-              child: Text(
+              child: const Text(
                 'Get Started',
                 style: TextStyle(
                   fontSize: 20,

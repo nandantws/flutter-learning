@@ -2,7 +2,12 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:helloworld/providers/category.dart';
 import 'package:helloworld/providers/product.dart';
+import 'package:helloworld/screens/Authentication/auth_page.dart';
+import 'package:helloworld/screens/Authentication/login.dart';
+import 'package:helloworld/screens/Authentication/loading.dart';
+import 'package:helloworld/screens/Authentication/signup.dart';
 import 'package:helloworld/screens/cart/cart.dart';
+import 'package:helloworld/screens/checkout/summary.dart';
 import 'package:helloworld/screens/onboarding/onboarding.dart';
 import 'package:provider/provider.dart';
 import 'screens/home/home.dart';
@@ -48,8 +53,13 @@ class MyApp extends StatelessWidget {
         // home: showHome ? OnboardingScreen() : Home(),
         routes: {
           '/splash': (context) => const Onboarding(),
+          '/auth': (context) => const AuthPage(),
+          '/login': (context) => const LoginScreen(),
+          '/signup': (context) => SignupScreen(),
           '/home': (context) => const Home(),
-          '/cart': (context) => const CartScreen(),
+          '/cart': (context) => CartScreen(),
+          '/checkout': (context) => const CheckoutScreen(),
+          '/loading': (context) => const LoadingScreen(),
         },
       ),
     );
