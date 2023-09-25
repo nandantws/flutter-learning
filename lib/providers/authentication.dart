@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:helloworld/handlers/authentication.dart';
 import 'package:helloworld/screens/widgets/popup.dart';
 
 class AuthProvider with ChangeNotifier {
@@ -28,22 +27,18 @@ class AuthProvider with ChangeNotifier {
       user = FirebaseAuth.instance.currentUser;
       notifyListeners();
       _setLoading(context, false);
-      Navigator.pushNamedAndRemoveUntil(context, '/splash', (route) => false);
+      Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
     } catch (e) {
-      print('-------------------------------------------------------------');
-      print(e);
       showMessage(e.toString(), context);
       _setLoading(context, false);
     }
   }
 
   void logout(BuildContext context) async {
-    // _setLoading(context, true);
     await _auth.signOut();
     user = FirebaseAuth.instance.currentUser;
     notifyListeners();
-    Navigator.pushNamedAndRemoveUntil(context, '/splash', (route) => false);
-    // _setLoading(context, false);
+    Navigator.pushNamedAndRemoveUntil(context, '/loading', (route) => false);
   }
 
   void signup(BuildContext context, String email, String password,
@@ -60,7 +55,7 @@ class AuthProvider with ChangeNotifier {
           email: email, password: password);
       _setLoading(context, false);
 
-      Navigator.pushNamedAndRemoveUntil(context, '/splash', (route) => false);
+      Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
     } on FirebaseAuthException catch (e) {
       showMessage(e.code, context);
       _setLoading(context, false);

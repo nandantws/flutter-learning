@@ -4,6 +4,7 @@ import 'package:helloworld/providers/category.dart';
 import 'package:helloworld/providers/product.dart';
 import 'package:helloworld/screens/Authentication/auth_page.dart';
 import 'package:helloworld/screens/Authentication/login.dart';
+import 'package:helloworld/screens/Authentication/loading.dart';
 import 'package:helloworld/screens/Authentication/signup.dart';
 import 'package:helloworld/screens/cart/cart.dart';
 import 'package:helloworld/screens/checkout/summary.dart';
@@ -58,6 +59,7 @@ class MyApp extends StatelessWidget {
           '/home': (context) => const Home(),
           '/cart': (context) => CartScreen(),
           '/checkout': (context) => const CheckoutScreen(),
+          '/loading': (context) => const LoadingScreen(),
         },
       ),
     );
