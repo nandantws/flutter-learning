@@ -8,9 +8,9 @@ import 'package:helloworld/screens/Authentication/loading.dart';
 import 'package:helloworld/screens/Authentication/signup.dart';
 import 'package:helloworld/screens/cart/cart.dart';
 import 'package:helloworld/screens/checkout/summary.dart';
+import 'package:helloworld/screens/index.dart';
 import 'package:helloworld/screens/onboarding/onboarding.dart';
 import 'package:provider/provider.dart';
-import 'screens/home/home.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -56,7 +56,7 @@ class MyApp extends StatelessWidget {
           '/auth': (context) => const AuthPage(),
           '/login': (context) => const LoginScreen(),
           '/signup': (context) => SignupScreen(),
-          '/home': (context) => const Home(),
+          '/index': (context) => const Index(),
           '/cart': (context) => CartScreen(),
           '/checkout': (context) => const CheckoutScreen(),
           '/loading': (context) => const LoadingScreen(),

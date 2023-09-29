@@ -27,7 +27,7 @@ class AuthProvider with ChangeNotifier {
       user = FirebaseAuth.instance.currentUser;
       notifyListeners();
       _setLoading(context, false);
-      Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
+      Navigator.pushNamedAndRemoveUntil(context, '/index', (route) => false);
     } catch (e) {
       showMessage(e.toString(), context);
       _setLoading(context, false);
@@ -55,7 +55,7 @@ class AuthProvider with ChangeNotifier {
           email: email, password: password);
       _setLoading(context, false);
 
-      Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
+      Navigator.pushNamedAndRemoveUntil(context, '/index', (route) => false);
     } on FirebaseAuthException catch (e) {
       showMessage(e.code, context);
       _setLoading(context, false);
