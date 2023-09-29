@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:helloworld/providers/authentication.dart';
 import 'package:helloworld/screens/home/utils.dart';
-import 'package:helloworld/screens/widgets/utils.dart';
+import 'package:helloworld/screens/widgets/icons.dart';
 
 class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
-  HomeAppbar({Key? key}) : super(key: key);
+  const HomeAppbar({Key? key}) : super(key: key);
   @override
   Size get preferredSize {
     return const Size.fromHeight(73.0);
@@ -36,23 +36,15 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
             ],
           ),
           GestureDetector(
-            onTap: () {
-              Navigator.pushNamed(
-                context,
-                '/cart',
-              );
-            },
-            child: const CartIcon(),
-          ),
-          Visibility(
-            visible: authProvider.user != null,
-            child: GestureDetector(
               onTap: () {
-                authProvider.logout(context);
+                Navigator.pushNamed(
+                  context,
+                  '/cart',
+                );
               },
-              child: const Icon(Icons.logout),
-            ),
-          ),
+              child: const IconWithDot(
+                icon: Icons.shopping_cart,
+              )),
         ]),
       ),
     );
@@ -76,7 +68,7 @@ class CartAppbar extends StatelessWidget implements PreferredSizeWidget {
         child: Row(children: [
           IconButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/home');
+                Navigator.pushNamed(context, '/index');
               },
               icon: const Icon(Icons.arrow_back_ios)),
           const Text(
@@ -86,7 +78,6 @@ class CartAppbar extends StatelessWidget implements PreferredSizeWidget {
           SizedBox(
             width: size.width * 0.65,
           ),
-          // NotificationIcon()
         ]),
       ),
     );

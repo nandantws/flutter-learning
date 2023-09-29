@@ -14,7 +14,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
     // Wait for 2 seconds (adjust the duration as needed)
     Future.delayed(const Duration(seconds: 2), () {
       // Navigate to the home screen
-      Navigator.pushReplacementNamed(context, '/home');
+      Navigator.pushReplacementNamed(context, '/index');
     });
   }
 

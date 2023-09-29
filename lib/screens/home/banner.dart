@@ -2,17 +2,19 @@ import 'package:flutter/material.dart';
 import "dart:math" show pi;
 
 class NewProductBanner extends StatelessWidget {
+  const NewProductBanner({super.key});
+
   @override
   Widget build(BuildContext context) {
-    Size _size = MediaQuery.of(context).size;
+    Size size = MediaQuery.of(context).size;
     return Stack(
       children: [
         Container(
-          height: _size.height * 0.19,
-          width: _size.width,
+          height: size.height * 0.19,
+          width: size.width,
           decoration: BoxDecoration(
               // color: Colors.orange,
-              gradient: LinearGradient(
+              gradient: const LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.topRight,
                 colors: [
@@ -27,8 +29,8 @@ class NewProductBanner extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 25),
-                Column(
+                const SizedBox(height: 25),
+                const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
@@ -48,13 +50,9 @@ class NewProductBanner extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(height: 12),
+                const SizedBox(height: 12),
                 ElevatedButton(
                     onPressed: () {},
-                    child: Text(
-                      'Buy Now',
-                      style: TextStyle(fontSize: 17),
-                    ),
                     style: ButtonStyle(
                       shape: MaterialStateProperty.all(RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10.0),
@@ -62,7 +60,11 @@ class NewProductBanner extends StatelessWidget {
                       fixedSize: MaterialStateProperty.all(const Size(120, 25)),
                       backgroundColor: MaterialStateProperty.all(Colors.white),
                       foregroundColor:
-                          MaterialStateProperty.all(Color(0xFFF2923E)),
+                          MaterialStateProperty.all(const Color(0xFFF2923E)),
+                    ),
+                    child: const Text(
+                      'Buy Now',
+                      style: TextStyle(fontSize: 17),
                     ))
               ],
             ),

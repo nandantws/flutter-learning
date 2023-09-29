@@ -24,7 +24,7 @@ class _OnboardingState extends State<Onboarding> {
     prefs = await SharedPreferences.getInstance();
     showHome = prefs.getBool('showHome') ?? true;
     if (!showHome) {
-      Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
+      Navigator.pushNamedAndRemoveUntil(context, '/index', (route) => false);
     }
   }
 
@@ -82,7 +82,7 @@ class _OnboardingState extends State<Onboarding> {
               ),
               onPressed: () {
                 Navigator.pushNamedAndRemoveUntil(
-                    context, '/home', (route) => false);
+                    context, '/index', (route) => false);
                 prefs.setBool('showHome', false);
               },
               child: const Text(

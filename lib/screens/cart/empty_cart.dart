@@ -28,7 +28,7 @@ class EmptyCart extends StatelessWidget {
           ),
           ElevatedButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/home');
+                Navigator.pushNamed(context, '/index');
               },
               child: const Text('Continue Shopping'))
         ],
