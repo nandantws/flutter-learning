@@ -12,7 +12,7 @@ class Home extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Container(
           color: const Color(0xFFF8F8F8),
-          child: const Column(
+          child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               SizedBox(
@@ -22,7 +22,7 @@ class Home extends StatelessWidget {
               SizedBox(
                 height: 20,
               ),
-              // Categories(),
+              Categories(),
             ],
           ),
         ),
